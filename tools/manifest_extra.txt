@@ -1,0 +1,7 @@
+After rerunning build.py, re-add manifest entries for fonts/, share_card_example, mock_gameplay_target, audio (see the inline patch from 2026-10-31).
+
+v2 (2026-10-31): build.py also overwrites the v2 art. After any build.py run, re-run in order:
+  python3 tools/v2_hamster.py; python3 tools/v2_mole.py; python3 tools/v2_tiles.py; python3 tools/v2_ui.py
+  python3 tools/v2_install.py   # merges ham_dig_down, ham_walk6, ham_ride(4f), mole alpha note, ui/2x, ui/3x, palette into manifest.json
+  python3 tools/v2_preview.py; python3 tools/v2_compare.py
+v2_install merges into the existing manifest, so it keeps fonts/share/mock/audio entries. A pre-install manifest snapshot is at work/v2/manifest_before_install.json.
