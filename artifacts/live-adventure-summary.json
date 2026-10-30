@@ -1,0 +1,42 @@
+{
+  "start": "2026-10-30T22:37:15.496Z",
+  "end": "2026-10-30T23:02:15.497Z",
+  "elapsedSeconds": 1500.001,
+  "samples": 290,
+  "modes": [
+    "IDLE",
+    "ACTIVE"
+  ],
+  "projectedIncreases": 112,
+  "increases": 2,
+  "settlements": [
+    {
+      "from": 628,
+      "to": 629,
+      "active": false,
+      "detectedAt": "2026-10-30T22:45:30.543Z",
+      "quakeAt": "2026-10-30T22:45:32.551Z"
+    },
+    {
+      "from": 629,
+      "to": 630,
+      "active": true,
+      "detectedAt": "2026-10-30T22:55:30.550Z",
+      "quakeAt": "2026-10-30T22:55:32.559Z"
+    }
+  ],
+  "quakes": 2,
+  "pageErrors": 0,
+  "networkBlockSeconds": 30,
+  "warningDelaysSeconds": [
+    2.008,
+    2.009
+  ],
+  "networkBlockActualSeconds": 30,
+  "quakesDuringBlockAndFirst10sOfRecovery": 0,
+  "maxNearbyEnemiesObserved": 3,
+  "allStateSamplesUnpaused": true,
+  "passed": true,
+  "source": "https://api.squeekchain.com/v1/status",
+  "settlementCount": 2
+}

@@ -1,0 +1,15 @@
+{
+  "start": "2026-10-30T22:31:56.919Z",
+  "end": "2026-10-30T22:56:56.940Z",
+  "elapsedSeconds": 1500.021,
+  "samples": 300,
+  "errors": 0,
+  "modes": [
+    "IDLE",
+    "ACTIVE"
+  ],
+  "projectedChanges": 121,
+  "increases": 3,
+  "quakes": 3,
+  "passed": true
+}

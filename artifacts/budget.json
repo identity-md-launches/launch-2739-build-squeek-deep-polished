@@ -1,18 +1,133 @@
 {
-  "limit_bytes": 8388608,
-  "dist_limit_bytes": 5242880,
-  "source_limit_bytes": 524288,
-  "documentation_scripts_artifacts_limit_bytes": 524288,
-  "font_license_limit_bytes": 8192,
-  "protected_configuration_and_dependencies": "unchanged",
-  "original_runtime_asset_files_verified": 67,
-  "static_export_files": 72,
-  "dist_index_included": true,
-  "dependency_or_cache_files_included": 0,
-  "symlinks_included": 0,
-  "eligible_new_or_modified_file_bytes": 2821102,
-  "dist_bytes": 2299767,
-  "source_bytes": 151131,
-  "documentation_scripts_artifacts_bytes": 365716,
-  "font_license_bytes": 4488
+  "byteLimit": 8388608,
+  "method": "Full bytes of added/modified files; deleted files contribute zero; scratch/inputs and unchanged baseline files do not count.",
+  "addedOrModifiedBytes": 1294026,
+  "remainingBytes": 7094582,
+  "protectedPathsUnchanged": true,
+  "ignoreFilesChanged": false,
+  "submodulesAdded": false,
+  "dependencyOrCacheFilesAdded": false,
+  "productionExportFiles": 72,
+  "files": [
+    {
+      "path": "DESIGN.md",
+      "bytes": 11807
+    },
+    {
+      "path": "README.md",
+      "bytes": 6985
+    },
+    {
+      "path": "artifacts/budget.json",
+      "bytes": 2777
+    },
+    {
+      "path": "artifacts/check-results.json",
+      "bytes": 5155
+    },
+    {
+      "path": "artifacts/live-adventure-summary.json",
+      "bytes": 929
+    },
+    {
+      "path": "artifacts/live-adventure.jsonl",
+      "bytes": 47991
+    },
+    {
+      "path": "artifacts/live-service-summary.json",
+      "bytes": 262
+    },
+    {
+      "path": "artifacts/live-service.jsonl",
+      "bytes": 32687
+    },
+    {
+      "path": "artifacts/render-checks.json",
+      "bytes": 25910
+    },
+    {
+      "path": "artifacts/screenshots/revision-darkness-60m.png",
+      "bytes": 76149
+    },
+    {
+      "path": "artifacts/screenshots/revision-game-over-390.png",
+      "bytes": 114488
+    },
+    {
+      "path": "artifacts/screenshots/revision-mine-320.png",
+      "bytes": 37796
+    },
+    {
+      "path": "artifacts/screenshots/revision-mine-390.png",
+      "bytes": 49344
+    },
+    {
+      "path": "artifacts/screenshots/revision-results-390.png",
+      "bytes": 113322
+    },
+    {
+      "path": "artifacts/screenshots/revision-shop-390.png",
+      "bytes": 39813
+    },
+    {
+      "path": "artifacts/screenshots/revision-title-390.png",
+      "bytes": 203775
+    },
+    {
+      "path": "artifacts/screenshots/revision-webkit-320.png",
+      "bytes": 44321
+    },
+    {
+      "path": "artifacts/taste.json",
+      "bytes": 34192
+    },
+    {
+      "path": "artifacts/validation.md",
+      "bytes": 23040
+    },
+    {
+      "path": "dist/bundle/index-BGJ7kk7v.css",
+      "bytes": 24888
+    },
+    {
+      "path": "dist/bundle/index-C0WHHJE8.js",
+      "bytes": 221915
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 1524
+    },
+    {
+      "path": "dist/sw.js",
+      "bytes": 2948
+    },
+    {
+      "path": "scripts/check-revision.mjs",
+      "bytes": 13010
+    },
+    {
+      "path": "src/assets.ts",
+      "bytes": 4426
+    },
+    {
+      "path": "src/engine.ts",
+      "bytes": 50427
+    },
+    {
+      "path": "src/main.tsx",
+      "bytes": 56975
+    },
+    {
+      "path": "src/model.ts",
+      "bytes": 8278
+    },
+    {
+      "path": "src/style.css",
+      "bytes": 31267
+    },
+    {
+      "path": "src/wheel.ts",
+      "bytes": 7625
+    }
+  ]
 }

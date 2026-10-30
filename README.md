@@ -13,7 +13,7 @@ npm ci
 npm run dev
 ```
 
-Open Vite's printed local URL. The game loads original art from `public/assets`. Use the arrow keys or A/S/D to move and dig, Space/W/Up to jump, Q for the basket, E to spit, and P/Escape to pause. At the surface, walk to the chest or press F to deposit. Touch controls appear for a coarse pointer: the pad moves/digs, A jumps, B spits, and the top basket control calls your ride home.
+Open Vite's printed local URL. The game loads original art from `public/assets`. Use the arrow keys or A/S/D to move and dig, Space/W/Up to jump, Q for the basket, E to spit, and P/Escape to pause. At the surface, walk to the chest or press F to deposit. Touch controls appear on narrow screens or with a coarse pointer: hold the pad to move/dig, tap Jump or Spit, and use Call basket below the full-width canvas. Pause opens settings, including Off/Low/Normal screen shake and the first-dig hint.
 
 ## Rebuild the production export
 
@@ -45,24 +45,35 @@ npm run preview -- --host 127.0.0.1
 
 Serve the contents of `dist/` over HTTP or HTTPS. Vite's base is `./`, all runtime paths work below a hosting subpath, and the service worker scopes itself to that path. There are no history routes or server rewrites. An ordinary static server also works; opening an HTML file directly does not provide a service-worker origin.
 
-Practice needs no wheel API and is labelled unranked. After an online visit finishes caching, the service worker supports an offline reload. Serving the local export also lets you launch Practice without an internet connection. Real-wheel failures show a resting winch and signal-loss text and never block mining. A battery in the entrance provides an initial return trip when the real wheel is resting.
+Practice needs no wheel API and is labelled unranked. After an online visit finishes caching, the service worker supports an offline reload. Serving the local export also lets you launch Practice without an internet connection. Real-wheel failures show a resting winch and signal-loss text and never block mining. Even with an IDLE wheel and zero battery, the safety basket returns at 40px/s. Wheel power or a battery makes the ride faster.
 
 ## Modes, saves, and wallet
 
 - Adventure uses persistent upgrades and hoard currency.
 - Daily uses the UTC-date map seed and base stats. Its scores are separate.
 - Practice uses a simulated 300rpm wheel, a quake every 90 seconds, and separate currency/upgrades.
+- Adventure/Daily quake only when the settled-round anchor increases. A 2-second rumble warns first; paused settlements coalesce to one. Errors and reconnection establish a silent baseline.
+- The round countdown follows genesis/600-second clock math; supply is formatted as compact 18-decimal SQK.
+- Shake defaults to Low. Reduced motion in settings or the operating system forces it off; these settings and the first-dig hint are saved.
 - The leaderboard is local to this browser, top 20 per mode. Storage keys are `squeekdeep.v1.save` and `squeekdeep.v1.lb`.
 - Wallet connection is optional. Named browser wallets use EIP-6963, with a `window.ethereum` fallback and phone wallet-browser links. Sign-in verifies the requested `personal_sign` message locally.
 - A result can optionally be recorded on Sepolia. The game checks chain `0xaa36a7`, sends 0 ETH to the connected account itself, includes the specified run payload, and saves the submitted hash with an explorer link. No real transaction was sent during validation; the browser flow was checked with a mock provider.
 
 ## Validation performed
 
-Production build and strict TypeScript checking passed. The pinned taste@1 probe passed **16/16** checks at 320, 390, and 1440px after corrections. The 390px first screen visibly contains Pip, the product identity, and Play.
+The revision’s production build/typecheck passed; the pinned design probe passed **16/16**. The actual export was checked at 320, 390, and 1440px. Both 25-minute live observations saw ACTIVE and IDLE: the service emitted 3 events for 3 anchor increases; Adventure produced 2 quakes for 2 increases, and no quake on the 30-second interruption/recovery. Detailed results, six-domain Better Interface coverage, live observation logs, and limitations are in [`artifacts/validation.md`](artifacts/validation.md).
 
-Local validation exercised deterministic world generation, all six layers to 300m, cheek stages/capacity, digging, jumps, combat/spills/death, boulders, baskets, deposits, prices/upgrades, wheel parsing/failure/mode switching, quakes without a real-time wait, local ranking, and wallet cryptography/transaction guards. Chromium interaction checks covered a mine-and-return loop, retirement, persisted results/settings, dialogs/tabs, downloads, sharing, offline reload, touch controls, and mocked wallet rejection and Sepolia record flows.
+Run the delivered deterministic regression suite after installing the unchanged dependencies:
 
-The commands, observed results, six-domain Better Interface review, fixed findings, screenshots, and exact remaining limitations are in [`artifacts/validation.md`](artifacts/validation.md). WebKit could not launch on this machine: its MiniBrowser reported missing `liblcms2.so.2`. Physical iPhone/Android, native screen-reader, and physical-phone 60fps checks are not claimed.
+```sh
+node scripts/check-revision.mjs
+```
+
+It imports the real TypeScript source in a temporary directory and checks settlement baselines/errors/batches, Practice reset/timing, clock math, mint formatting, saved settings, the enemy cap, warning/pause behavior, the 30m safety basket, deposit/retirement, jumping, bounded shake, and identical Daily worlds with shake Off versus Normal. It uses a stub canvas for simulation/render-call checks; browser screenshots are separate evidence.
+
+Browser checks cover the complete canvas and 48px controls, first-dig/IME input, retirement/restart scroll, all six upgrades, hint/settings persistence, Game Over, PNG sharing, offline reload/held touch digging, and the existing wallet sign-in and Sepolia self-record flow. Wallet calls were mocked; no real transaction or approval was sent. WebKit interaction/layout checks use controlled API fixtures because this machine’s WebKit TLS backend could not read the public HTTPS API. Live API observation uses Chromium and the real wheel service.
+
+Physical devices, native screen readers, native 200% zoom, and physical audio listening remain unperformed. Do not interpret the automated checks as certification of those cases.
 
 ## Project map
 

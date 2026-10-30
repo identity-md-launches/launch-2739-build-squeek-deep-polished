@@ -1,55 +1,198 @@
 {
-  "build": "passed",
-  "typecheck": "passed (npm run build runs tsc --noEmit before Vite)",
-  "simulation_checks": 19,
-  "extended_checks": 4,
-  "chromium_interaction_checks": 31,
-  "browser_scripts": [
+  "revision": "01a9514 follow-up",
+  "productionBuild": "passed: npm run build (tsc --noEmit && vite build) via scripts/build.mjs",
+  "regressionCommand": "node scripts/check-revision.mjs",
+  "regressionGroups": [
     {
-      "script": "browser-test.mjs",
-      "exitCode": 0
+      "name": "Only settled rounds trigger; first sample, blocks, idle, batches and regressions",
+      "passed": true
     },
     {
-      "script": "touch-test.mjs",
-      "exitCode": 0
+      "name": "API initial failure and recovery establish baseline without quake or timestamp write",
+      "passed": true
     },
     {
-      "script": "wallet-browser.mjs",
-      "exitCode": 0
+      "name": "Practice quakes once per 90s and resets IDLE synchronously for Adventure; core once",
+      "passed": true
     },
     {
-      "script": "shop-api.mjs",
-      "exitCode": 0
+      "name": "Countdown follows genesis at boundaries and never projected/economy state",
+      "passed": true
     },
     {
-      "script": "recovery.mjs",
-      "exitCode": 0
+      "name": "18-decimal SQK is compact, including exact sample",
+      "passed": true
+    },
+    {
+      "name": "Save migration: default Low, saved shake and first dig hint",
+      "passed": true
+    },
+    {
+      "name": "Keep 25 initial enemies; at most one spawn per quake and cap 3 near player",
+      "passed": true
+    },
+    {
+      "name": "Enemy cap includes the full 15-row boundary at fractional player depth",
+      "passed": true
+    },
+    {
+      "name": "Settlement warns for 2s; pause freezes quake, coalesces backlog to 1",
+      "passed": true
+    },
+    {
+      "name": "Safety basket at 30m, IDLE with zero battery returns and banks in <=25s",
+      "passed": true
+    },
+    {
+      "name": "Deposit by walking, F key, explicit button path, and safe retirement all bank",
+      "passed": true
+    },
+    {
+      "name": "Jump/landing stretch and the actual 8px pickup hop render correctly",
+      "passed": true
+    },
+    {
+      "name": "Shake is <=3 CSS px at Normal at every scale, low half, off/reduced 0; decays in 0.6s",
+      "passed": true
+    },
+    {
+      "name": "Daily identical inputs/seed and different render counts with Off vs Normal produce identical world after 2 quakes",
+      "passed": true
     }
   ],
-  "deep_render_cases_m": [
-    10,
-    60,
-    110,
-    170,
-    230,
-    280
-  ],
-  "design_checks_passed": 16,
-  "design_checks_total": 16,
-  "webkit": "Unavailable: liblcms2.so.2 missing; no WebKit pass claimed",
-  "phone_fps": "Not physically verified",
-  "bundle_files": [
-    "dist/bundle/index-Da_vqJro.css",
-    "dist/bundle/index-CvzvftcU.js"
-  ],
-  "source_sha256": {
-    "src/assets.ts": "b57290a8d2c3d743ead30535a85cce1abae89b7a637db7c52b05f49a81153746",
-    "src/engine.ts": "4de347771f1483acf161cc4e2364585051c5b63e398ebe74e6eb3419a5e1da28",
-    "src/main.tsx": "99fe5eec57c7ddf44bbc583675e20ad02c710823c9e6f85c34054373498b2b9a",
-    "src/model.ts": "7939d599c48ea961cb6f529cef7672c2618ff48a44a06a2b09274fb94d4a93d8",
-    "src/share.ts": "7b9bdc6c50e4b44d1679d725417caec58bf5a32c11065b958cb05b711b326aae",
-    "src/style.css": "4567f19a1af06ce52650ade6dc1721a82870defa56ee58bc3e68e2b1b784b6e5",
-    "src/wallet.ts": "16ebee0a3835f951d6d2356b42e8f344930dcdc486acec0c282ded6ced001b1a",
-    "src/wheel.ts": "3541bd2c65447117c2b700f76fccedbdecda736628c23c64da222e87cc8fca0b"
+  "extendedBrowser": {
+    "passed": 10,
+    "results": [
+      {
+        "name": "Wallet rejection recovers and original message sign-in verifies",
+        "passed": true
+      },
+      {
+        "name": "First hint hides after an actual IME arrow dig and persists",
+        "passed": true
+      },
+      {
+        "name": "All six upgrades purchase exact prices and change stats",
+        "passed": true
+      },
+      {
+        "name": "Shake settings persist and system reduced motion forces no shake; show hint again",
+        "passed": true
+      },
+      {
+        "name": "Game Over preserves banked amount and uses the art layout",
+        "passed": true
+      },
+      {
+        "name": "Share generates and downloads a 1200\u00d7630 PNG with X intent",
+        "passed": true
+      },
+      {
+        "name": "Original Sepolia-only self-record flow sends exact payload using mocked provider",
+        "passed": true
+      },
+      {
+        "name": "Daily keeps base stats and disables every purchase",
+        "passed": true
+      },
+      {
+        "name": "Practice economy stays separate and Adventure power resets before first response",
+        "passed": true
+      },
+      {
+        "name": "Native dialog focus trap and return; keyboard pause",
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "walletMethods": [
+      "eth_requestAccounts",
+      "eth_requestAccounts",
+      "personal_sign",
+      "wallet_switchEthereumChain",
+      "eth_chainId",
+      "eth_accounts",
+      "eth_sendTransaction"
+    ]
+  },
+  "offlineTouch": {
+    "cache": {
+      "name": "squeekdeep-v1-1793400010543",
+      "entries": 72
+    },
+    "offlineReload": true,
+    "practiceWheel": {
+      "active": true,
+      "practice": true,
+      "depth": 0
+    },
+    "heldTouchDig": {
+      "hasDug": true,
+      "depth": 2,
+      "held": [],
+      "hintSeen": true
+    },
+    "basketReturn": true,
+    "pauseResume": true,
+    "pageErrors": []
+  },
+  "visualMechanics": {
+    "countdown": {
+      "hud": "ROUND 0:17   60m",
+      "expected": "0:17",
+      "remaining": 16.51099991798401,
+      "actualMatches": true
+    },
+    "light": [
+      {
+        "depth": 0,
+        "expectedAlpha": 0,
+        "actualAlpha": 0
+      },
+      {
+        "depth": 9,
+        "expectedAlpha": 0,
+        "actualAlpha": 0
+      },
+      {
+        "depth": 10,
+        "expectedAlpha": 0.3683333333333333,
+        "actualAlpha": 0.3686274509803922
+      },
+      {
+        "depth": 60,
+        "expectedAlpha": 0.45999999999999996,
+        "actualAlpha": 0.4588235294117647
+      },
+      {
+        "depth": 150,
+        "expectedAlpha": 0.625,
+        "actualAlpha": 0.6235294117647059
+      },
+      {
+        "depth": 300,
+        "expectedAlpha": 0.9,
+        "actualAlpha": 0.9019607843137255
+      }
+    ],
+    "blinks": [
+      {
+        "at": 3.868466666666658,
+        "duration": 0.12
+      },
+      {
+        "at": 7.25179999999998,
+        "duration": 0.12
+      },
+      {
+        "at": 11.45180000000015,
+        "duration": 0.12
+      }
+    ],
+    "jump": {
+      "scaleX": 0.88,
+      "scaleY": 1.12,
+      "vy": -368.6666666666667
+    }
   }
 }

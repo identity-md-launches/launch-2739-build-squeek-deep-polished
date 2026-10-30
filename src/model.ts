@@ -221,12 +221,15 @@ export interface Entry {
   txHash?: string;
   wheel: string;
 }
+export type ScreenShake = "off" | "low" | "normal";
 export interface Save {
   upgrades: Levels;
   hoard: number;
   practiceHoard: number;
   practiceUpgrades: Levels;
+  hintSeen: boolean;
   settings: {
+    screenShake: ScreenShake;
     muted: boolean;
     music: number;
     sfx: number;
@@ -240,7 +243,14 @@ export const freshSave = (): Save => ({
   practiceUpgrades: { ...BASE },
   hoard: 0,
   practiceHoard: 0,
-  settings: { muted: false, music: 0.4, sfx: 0.65, reducedMotion: false },
+  hintSeen: false,
+  settings: {
+    muted: false,
+    music: 0.4,
+    sfx: 0.65,
+    reducedMotion: false,
+    screenShake: "low",
+  },
   name: "Pip",
   lastDepth: 0,
 });
@@ -267,6 +277,7 @@ export function readSave(): Save {
         : fallback;
     return {
       ...fresh,
+      hintSeen: s.hintSeen === true,
       name: String(s.name || "Pip").slice(0, 20),
       lastDepth: Math.min(300, nonnegative(s.lastDepth)),
       hoard: nonnegative(s.hoard),
@@ -274,6 +285,9 @@ export function readSave(): Save {
       upgrades: levels(s.upgrades),
       practiceUpgrades: levels(s.practiceUpgrades),
       settings: {
+        screenShake: ["off", "low", "normal"].includes(s.settings?.screenShake)
+          ? s.settings.screenShake
+          : "low",
         muted: s.settings?.muted === true,
         reducedMotion: s.settings?.reducedMotion === true,
         music: volume(s.settings?.music, 0.4),

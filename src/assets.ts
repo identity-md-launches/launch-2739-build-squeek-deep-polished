@@ -1,5 +1,6 @@
 export const A = "./assets/";
 const imagePaths = [
+  "keyart/title_keyart.webp",
   "hamster/ham_idle.png",
   "hamster/ham_walk.png",
   "hamster/ham_dig.png",
@@ -99,6 +100,23 @@ export class AudioBank {
       if (this.muted) this.music.pause();
       else if (this.unlocked) void this.music.play().catch(() => {});
     }
+  }
+  rumble() {
+    if (this.muted || !this.context || !this.unlocked) return;
+    const buffer = this.buffers.get("quake");
+    if (!buffer) return;
+    const source = this.context.createBufferSource();
+    source.buffer = buffer;
+    source.playbackRate.value = 0.45;
+    const filter = this.context.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 160;
+    const gain = this.context.createGain();
+    gain.gain.setValueAtTime(this.sfxVolume * 0.22, this.context.currentTime);
+    gain.gain.linearRampToValueAtTime(0, this.context.currentTime + 2);
+    source.connect(filter).connect(gain).connect(this.context.destination);
+    source.start();
+    source.stop(this.context.currentTime + 2);
   }
   play(name: string, gain = 1) {
     if (this.muted || !this.context || !this.unlocked) return;

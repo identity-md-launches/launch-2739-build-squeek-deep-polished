@@ -83,11 +83,13 @@ function Dialog({
   close,
   children,
   wide = false,
+  className = "",
 }: {
   title: string;
   close: () => void;
   children: ReactNode;
   wide?: boolean;
+  className?: string;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -98,7 +100,7 @@ function Dialog({
   return (
     <dialog
       ref={ref}
-      className={`dialog ${wide ? "wide" : ""}`}
+      className={`dialog ${wide ? "wide" : ""} ${className}`}
       aria-labelledby="dialog-title"
       onCancel={(e) => {
         e.preventDefault();
@@ -124,6 +126,17 @@ function Dialog({
       </div>
     </dialog>
   );
+}
+export function gameKey(
+  e: Pick<KeyboardEvent, "code" | "key" | "isComposing" | "keyCode">,
+) {
+  // Arrows remain usable inside an IME; composition must not turn letter keys into actions.
+  if (e.code.startsWith("Arrow")) return e.code.toLowerCase();
+  if (e.isComposing || e.keyCode === 229) return null;
+  if (/^Key[WASDQEFP]$/.test(e.code)) return e.code.slice(3).toLowerCase();
+  if (e.code === "Space") return " ";
+  if (e.code === "Escape") return "escape";
+  return e.key.toLowerCase();
 }
 function App() {
   const [save, setSave] = useState<Save>(readSave);
@@ -154,6 +167,7 @@ function App() {
   const service = useRef<WheelService>();
   const [scale, setScale] = useState(1);
   const [coarse, setCoarse] = useState(false);
+  const [showHint, setShowHint] = useState(!save.hintSeen);
 
   useEffect(() => {
     if (!store("squeekdeep.v1.save", save)) setStorageError(true);
@@ -161,10 +175,12 @@ function App() {
     audio.musicVolume = save.settings.music;
     audio.sfxVolume = save.settings.sfx;
     audio.sync();
-    if (engine.current)
+    if (engine.current) {
+      engine.current.screenShake = save.settings.screenShake;
       engine.current.reducedMotion =
         save.settings.reducedMotion ||
         matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
   }, [save]);
   useEffect(() => {
     if (!store("squeekdeep.v1.lb", entries)) setStorageError(true);
@@ -237,6 +253,7 @@ function App() {
         );
         engine.current = game;
         game.wheel = wheelService.state;
+        game.screenShake = saveRef.current.settings.screenShake;
         game.reducedMotion =
           saveRef.current.settings.reducedMotion ||
           matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -258,7 +275,14 @@ function App() {
         frame = requestAnimationFrame(loop);
       })
       .catch((e) => setLoadError(e.message));
-    const query = matchMedia("(pointer: coarse)");
+    const query = matchMedia("(pointer: coarse), (max-width: 650px)");
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    const syncMotion = () => {
+      if (engine.current)
+        engine.current.reducedMotion =
+          saveRef.current.settings.reducedMotion || motion.matches;
+    };
+    motion.addEventListener("change", syncMotion);
     const touch = () => setCoarse(query.matches);
     touch();
     query.addEventListener("change", touch);
@@ -267,6 +291,7 @@ function App() {
       cancelAnimationFrame(frame);
       wheelService.stop();
       query.removeEventListener("change", touch);
+      motion.removeEventListener("change", syncMotion);
       removeEventListener("pointerdown", unlock);
       removeEventListener("keydown", unlock);
     };
@@ -275,16 +300,31 @@ function App() {
     const resize = () => {
       if (!stage.current) return;
       const available = stage.current.clientWidth;
-      const s = Math.max(1, Math.min(3, Math.floor(available / WIDTH)));
+      const s =
+        available < WIDTH
+          ? available / WIDTH
+          : Math.min(3, Math.floor(available / WIDTH));
       setScale(s);
-      if (engine.current)
-        engine.current.visibleWidth = Math.min(WIDTH, available / s);
+      if (engine.current) {
+        engine.current.visibleWidth = WIDTH;
+        engine.current.screenScale = s;
+      }
     };
     const r = new ResizeObserver(resize);
     if (stage.current) r.observe(stage.current);
     resize();
     return () => r.disconnect();
   }, [ready, screen]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.classList.toggle("playing", screen === "game");
+  }, [screen]);
+  useEffect(() => {
+    if (snapshot?.hasDug && showHint) {
+      setShowHint(false);
+      setSave((old) => ({ ...old, hintSeen: true }));
+    }
+  }, [snapshot?.hasDug, showHint]);
   useEffect(() => {
     if (engine.current) {
       engine.current.paused = screen !== "game" || modal !== null;
@@ -304,7 +344,8 @@ function App() {
         [" ", "Enter"].includes(e.key)
       )
         return;
-      const key = e.key.toLowerCase();
+      const key = gameKey(e);
+      if (!key) return;
       if (screen === "game") {
         if (["escape", "p"].includes(key)) {
           e.preventDefault();
@@ -333,7 +374,9 @@ function App() {
       }
     };
     const keyup = (e: KeyboardEvent) =>
-      engine.current?.release(e.key.toLowerCase());
+      engine.current?.release(
+        gameKey(e) || e.code.replace("Key", "").toLowerCase(),
+      );
     const loseFocus = () => {
       engine.current?.clearInput();
       if (screen === "game" && !modal) setModal("pause");
@@ -383,6 +426,9 @@ function App() {
     if (!engine.current) return;
     audio.unlock();
     audio.play("click");
+    engine.current.campHoard =
+      m === "practice" ? save.practiceHoard : save.hoard;
+    setShowHint(!save.hintSeen);
     setMode(m);
     setTab(m);
     setResult(null);
@@ -435,6 +481,7 @@ function App() {
         : { ...old, hoard: old.hoard - cost, upgrades: next },
     );
     engine.current?.buyLevels(next);
+    if (engine.current) engine.current.campHoard = balance - cost;
     audio.play("upgrade");
     setNotice(`${info.name} upgraded to level ${level + 1}.`);
   };
@@ -708,19 +755,6 @@ function App() {
               Pause <kbd>P</kbd>
             </Button>
           </div>
-          {coarse && (
-            <div className="touch-top">
-              <button type="button" onClick={() => open("pause")}>
-                Pause
-              </button>
-              <button
-                type="button"
-                onClick={() => engine.current?.callBasket()}
-              >
-                Call basket ↑
-              </button>
-            </div>
-          )}
           <div
             className="game-frame"
             ref={stage}
@@ -734,7 +768,30 @@ function App() {
               aria-label="Squeek Deep mine. Use arrows or WASD to move and dig, Space to jump, Q for basket, E to spit, P to pause."
               role="img"
             />
+            {showHint && (
+              <div className="first-dig-hint" role="note">
+                <span className="hint-pip" aria-hidden="true" />
+                <p>
+                  {coarse
+                    ? "Hold ← / → / ↓ to dig. Tap Jump to hop, Call basket to return, Spit to lighten your cheeks."
+                    : "Hold Left/Right/Down (or A/D/S) to dig, Space/Up to jump, Q call basket, E spit"}
+                </p>
+              </div>
+            )}
+            {snapshot?.settling && (
+              <div className="settling-banner" role="status">
+                Rumble... round settling
+              </div>
+            )}
           </div>
+          {coarse && (
+            <div className="touch-top" aria-label="Mine actions">
+              <Button onClick={() => open("pause")}>Pause</Button>
+              <Button onClick={() => engine.current?.callBasket()}>
+                {snapshot?.riding ? "Step off basket" : "Call basket ↑"}
+              </Button>
+            </div>
+          )}
           {coarse && (
             <div className="touch-controls" aria-label="Touch game controls">
               <div className="dpad">
@@ -744,8 +801,8 @@ function App() {
                 {touchButton("arrowright", "Move and dig right", "→", "right")}
               </div>
               <div className="touch-ab">
-                {touchButton("e", "Spit cheek contents", "B", "spit")}
-                {touchButton(" ", "Jump", "A", "jump")}
+                {touchButton("e", "Spit cheek contents", "Spit", "spit")}
+                {touchButton(" ", "Jump", "Jump", "jump")}
               </div>
             </div>
           )}
@@ -755,64 +812,8 @@ function App() {
                 ? "Home sweet hoard. Dig down when you’re ready."
                 : "Hold into soil to dig. Q calls the basket. E lightens your cheeks.")}
           </div>
-          <div className="run-stats" aria-label="Run statistics">
-            <div>
-              <span className="muted">Depth</span>
-              <strong>
-                {snapshot?.depth ?? 0}
-                <small> m</small>
-              </strong>
-              <span>{snapshot?.layer || "Topsoil"}</span>
-            </div>
-            <div>
-              <span className="muted">In your cheeks</span>
-              <strong>
-                {snapshot?.load ?? 0}
-                <small> / {snapshot?.capacity ?? 10}</small>
-              </strong>
-              <span>{fmt(snapshot?.value ?? 0)} seeds of treasure</span>
-            </div>
-            <div>
-              <span className="muted">Safely hoarded</span>
-              <strong className="gold-text">{fmt(snapshot?.hoard ?? 0)}</strong>
-              <span>Best depth {snapshot?.maxDepth ?? 0}m</span>
-            </div>
-            <div className="run-health">
-              <span className="muted">Little hamster, big heart</span>
-              <div
-                role="img"
-                aria-label={`${snapshot?.hp ?? 3} of ${snapshot?.maxHP ?? 3} health`}
-                className="hearts"
-              >
-                {Array.from({ length: snapshot?.maxHP ?? 3 }, (_, i) => (
-                  <span
-                    key={i}
-                    style={{ opacity: i < (snapshot?.hp ?? 3) ? 1 : 0.25 }}
-                  >
-                    <Item item={13} size={28} />
-                  </span>
-                ))}
-              </div>
-              <span>
-                {snapshot?.riding
-                  ? "Riding home"
-                  : `${Math.ceil(snapshot?.battery ?? 0)}s battery charge`}
-              </span>
-            </div>
-          </div>
           {snapshot?.atCamp ? (
-            <section className="camp-panel" aria-labelledby="camp-heading">
-              <div className="camp-greeting">
-                <Item item={15} size={48} />
-                <div>
-                  <h2 id="camp-heading">Home sweet hoard.</h2>
-                  <p>
-                    {save.lastDepth
-                      ? `Back again! Last time you reached ${save.lastDepth}m.`
-                      : "Every great hoard begins with a tiny seed."}
-                  </p>
-                </div>
-              </div>
+            <section className="camp-panel" aria-label="Surface actions">
               <div className="camp-actions">
                 <Button
                   variant="gold"
@@ -830,39 +831,6 @@ function App() {
                   Retire safely
                 </Button>
               </div>
-              <div className="camp-board">
-                <span>
-                  Squeek minted <strong>{wheel.minted}</strong>
-                </span>
-                <button
-                  type="button"
-                  className="text-button"
-                  onClick={() => open("leaderboard")}
-                >
-                  Local leaderboard →
-                </button>
-                <button
-                  type="button"
-                  className="text-button"
-                  onClick={() => open("wallet")}
-                >
-                  {address
-                    ? shortAddress(address)
-                    : "Connect wallet · optional"}
-                </button>
-              </div>
-              <label className="name-field">
-                Miner name
-                <input
-                  name="miner-name"
-                  autoComplete="nickname"
-                  maxLength={20}
-                  value={save.name}
-                  onChange={(e) =>
-                    setSave((s) => ({ ...s, name: e.target.value }))
-                  }
-                />
-              </label>
             </section>
           ) : (
             <div className="underground-actions">
@@ -881,6 +849,107 @@ function App() {
               </span>
             </div>
           )}
+          <details className="run-details" open={!coarse}>
+            <summary>
+              {snapshot?.atCamp ? "Camp & run details" : "Run details"} ·{" "}
+              {snapshot?.depth ?? 0}m · {fmt(snapshot?.hoard ?? 0)} hoarded
+            </summary>
+            <div className="run-stats" aria-label="Run statistics">
+              <div>
+                <span className="muted">Depth</span>
+                <strong>
+                  {snapshot?.depth ?? 0}
+                  <small> m</small>
+                </strong>
+                <span>{snapshot?.layer || "Topsoil"}</span>
+              </div>
+              <div>
+                <span className="muted">In your cheeks</span>
+                <strong>
+                  {snapshot?.load ?? 0}
+                  <small> / {snapshot?.capacity ?? 10}</small>
+                </strong>
+                <span>{fmt(snapshot?.value ?? 0)} seeds of treasure</span>
+              </div>
+              <div>
+                <span className="muted">Safely hoarded</span>
+                <strong className="gold-text">
+                  {fmt(snapshot?.hoard ?? 0)}
+                </strong>
+                <span>Best depth {snapshot?.maxDepth ?? 0}m</span>
+              </div>
+              <div className="run-health">
+                <span className="muted">Little hamster, big heart</span>
+                <div
+                  role="img"
+                  aria-label={`${snapshot?.hp ?? 3} of ${snapshot?.maxHP ?? 3} health`}
+                  className="hearts"
+                >
+                  {Array.from({ length: snapshot?.maxHP ?? 3 }, (_, i) => (
+                    <span
+                      key={i}
+                      style={{ opacity: i < (snapshot?.hp ?? 3) ? 1 : 0.25 }}
+                    >
+                      <Item item={13} size={28} />
+                    </span>
+                  ))}
+                </div>
+                <span>
+                  {snapshot?.riding
+                    ? "Riding home"
+                    : `${Math.ceil(snapshot?.battery ?? 0)}s battery charge`}
+                </span>
+              </div>
+            </div>
+            {snapshot?.atCamp && (
+              <div className="camp-details">
+                <div className="camp-greeting">
+                  <Item item={15} size={48} />
+                  <div>
+                    <h2 id="camp-heading">Home sweet hoard.</h2>
+                    <p>
+                      {save.lastDepth
+                        ? `Back again! Last time you reached ${save.lastDepth}m.`
+                        : "Every great hoard begins with a tiny seed."}
+                    </p>
+                  </div>
+                </div>
+                <div className="camp-board">
+                  <span>
+                    Squeek minted <strong>{wheel.minted}</strong>
+                  </span>
+                  <button
+                    type="button"
+                    className="text-button"
+                    onClick={() => open("leaderboard")}
+                  >
+                    Local leaderboard →
+                  </button>
+                  <button
+                    type="button"
+                    className="text-button"
+                    onClick={() => open("wallet")}
+                  >
+                    {address
+                      ? shortAddress(address)
+                      : "Connect wallet · optional"}
+                  </button>
+                </div>
+                <label className="name-field">
+                  Miner name
+                  <input
+                    name="miner-name"
+                    autoComplete="nickname"
+                    maxLength={20}
+                    value={save.name}
+                    onChange={(e) =>
+                      setSave((s) => ({ ...s, name: e.target.value }))
+                    }
+                  />
+                </label>
+              </div>
+            )}
+          </details>
           <div className="keyboard-hint">
             <span>
               <kbd>←</kbd>
@@ -904,6 +973,9 @@ function App() {
 
         {screen === "results" && result && (
           <section className="results-screen" aria-labelledby="results-heading">
+            <div className="results-art" aria-hidden="true">
+              <img src={`${A}keyart/title_keyart.webp`} alt="" />
+            </div>
             <div className="results-intro">
               <div
                 className={`results-pip${engine.current?.hp === 0 ? " hurt" : ""}`}
@@ -911,8 +983,8 @@ function App() {
               />
               <h1 id="results-heading">
                 {engine.current?.hp === 0
-                  ? "A little rest. A new adventure."
-                  : "A hoard to come home to."}
+                  ? "Paws up, little miner."
+                  : "Home with a hoard."}
               </h1>
               <p>
                 {engine.current?.hp === 0
@@ -1034,6 +1106,7 @@ function App() {
           }
           close={closeModal}
           wide={["help", "shop", "leaderboard", "share"].includes(modal)}
+          className={modal === "shop" ? "shop-dialog" : ""}
         >
           {modal === "help" && (
             <>
@@ -1073,7 +1146,8 @@ function App() {
                 <div>
                   <dt>Call basket</dt>
                   <dd>
-                    <kbd>Q</kbd>. Needs an active wheel or battery charge.
+                    <kbd>Q</kbd>. Always returns you home. The wheel or a
+                    battery makes it faster.
                   </dd>
                 </div>
                 <div>
@@ -1386,6 +1460,27 @@ function App() {
                     }
                   />
                 </label>
+                <label>
+                  Screen shake
+                  <select
+                    aria-label="Screen shake"
+                    value={save.settings.screenShake}
+                    onChange={(e) =>
+                      setSave((old) => ({
+                        ...old,
+                        settings: {
+                          ...old.settings,
+                          screenShake: e.target
+                            .value as Save["settings"]["screenShake"],
+                        },
+                      }))
+                    }
+                  >
+                    <option value="off">Off</option>
+                    <option value="low">Low</option>
+                    <option value="normal">Normal</option>
+                  </select>
+                </label>
                 <label className="check-label">
                   <input
                     type="checkbox"
@@ -1400,9 +1495,20 @@ function App() {
                       }))
                     }
                   />
-                  Reduce shake & motion
+                  Reduce motion (screen shake off)
                 </label>
               </div>
+              <Button
+                onClick={() => {
+                  if (engine.current) engine.current.hasDug = false;
+                  setSave((old) => ({ ...old, hintSeen: false }));
+                  setSnapshot(engine.current?.snapshot() ?? null);
+                  setShowHint(true);
+                  closeModal();
+                }}
+              >
+                Show digging hint again
+              </Button>
               <p className="muted">
                 To finish safely, return to the surface and choose Retire
                 safely.

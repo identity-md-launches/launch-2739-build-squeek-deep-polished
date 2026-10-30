@@ -13,8 +13,9 @@ import {
   type Levels,
   type Mode,
   type Tile,
+  type ScreenShake,
 } from "./model";
-import { initialWheel, type Wheel } from "./wheel";
+import { initialWheel, roundClock, type Wheel } from "./wheel";
 
 export const WIDTH = 480,
   HEIGHT = 270,
@@ -92,6 +93,8 @@ export interface Snapshot {
   quakes: number;
   message: string;
   seconds: number;
+  hasDug: boolean;
+  settling: boolean;
 }
 export class Game {
   world: Tile[][] = [];
@@ -139,6 +142,17 @@ export class Game {
   shakePower = 0;
   hitStop = 0;
   reducedMotion = false;
+  screenShake: ScreenShake = "low";
+  screenScale = 1;
+  campHoard = 0;
+  hasDug = false;
+  private shakeDuration = 0.6;
+  private settling = 0;
+  private blinkIn = 4;
+  private blink = 0;
+  private jumpStretch = 0;
+  private landSquash = 0;
+  private visualRand = random(0x917ce);
   visibleWidth = WIDTH;
   message = "Welcome to camp. Your next adventure starts below.";
   private messageTime = 8;
@@ -252,7 +266,10 @@ export class Game {
     this.riding = this.ended = false;
     this.started = true;
     this.paused = false;
-    this.lastLayer = this.pendingQuakes = 0;
+    this.lastLayer = this.pendingQuakes = this.settling = 0;
+    this.blinkIn = 3 + this.visualRand() * 2;
+    this.blink = this.jumpStretch = this.landSquash = 0;
+    this.hasDug = false;
     this.lastFull = -10;
     this.keys.clear();
     this.lanterns = [];
@@ -318,18 +335,37 @@ export class Game {
       riding: this.riding,
       battery: this.battery,
       quakes: this.quakes,
-      message: this.message,
+      message: this.settling > 0 ? "Rumble... round settling" : this.message,
       seconds: this.seconds,
+      hasDug: this.hasDug,
+      settling: this.settling > 0,
     };
   }
   setWheel(w: Wheel, quake: boolean) {
     if (w.active !== this.wheel.active)
       audio.play(w.active ? "power_on" : "power_off");
     this.wheel = w;
-    if (quake && this.started && !this.ended) {
-      if (this.paused) this.pendingQuakes++;
-      else this.earthquake();
+    if (quake && this.started && !this.ended && this.settling === 0) {
+      if (this.paused) this.pendingQuakes = 1;
+      else this.beginSettlement();
     }
+  }
+  private beginSettlement() {
+    this.settling = 2;
+    this.say("Rumble... round settling", 2);
+    audio.rumble();
+    this.fallingDust(5, 2);
+  }
+  private fallingDust(count: number, life: number) {
+    for (let i = 0; i < count; i++)
+      this.particles.push({
+        x: this.visualRand() * WIDTH,
+        y: this.camera + 35 + this.visualRand() * 40,
+        vx: (this.visualRand() - 0.5) * 12,
+        vy: 12 + this.visualRand() * 20,
+        life,
+        color: "#c7b2a2",
+      });
   }
   press(key: string) {
     if (this.keys.has(key)) return;
@@ -387,6 +423,7 @@ export class Game {
       if (!this.collides(p.x, p.y + dy / steps)) p.y += dy / steps;
       else {
         if (dy > 0) {
+          if (!p.grounded && p.vy > 60) this.landSquash = 0.1;
           p.grounded = true;
           p.coyote = 0.09;
         }
@@ -398,14 +435,25 @@ export class Game {
   update(dt: number) {
     if (!this.started || this.paused || this.ended) return;
     dt = Math.min(0.035, dt);
-    if (this.pendingQuakes) {
-      this.pendingQuakes--;
-      this.earthquake();
+    if (this.settling > 0) {
+      this.settling = Math.max(0, this.settling - dt);
+      if (this.settling === 0) this.earthquake();
+    } else if (this.pendingQuakes) {
+      this.pendingQuakes = 0;
+      this.beginSettlement();
     }
     this.seconds += dt;
     this.messageTime -= dt;
     if (this.messageTime < 0) this.message = "";
     this.shake = Math.max(0, this.shake - dt);
+    this.jumpStretch = Math.max(0, this.jumpStretch - dt);
+    this.landSquash = Math.max(0, this.landSquash - dt);
+    this.blink = Math.max(0, this.blink - dt);
+    this.blinkIn -= dt;
+    if (this.blinkIn <= 0) {
+      this.blink = 0.12;
+      this.blinkIn = 3 + this.visualRand() * 2;
+    }
     this.p.hurt = Math.max(0, this.p.hurt - dt);
     this.p.boost = Math.max(0, this.p.boost - dt);
     this.p.hop = Math.max(0, this.p.hop - dt);
@@ -426,7 +474,9 @@ export class Game {
       p.coyote -= dt;
       p.buffer -= dt;
       if (p.buffer > 0 && p.coyote > 0) {
-        p.vy = -320 * (1 - 0.25 * r);
+        p.vy = -380 * (1 - 0.25 * r);
+        this.jumpStretch = 0.12;
+        this.landSquash = 0;
         p.buffer = p.coyote = 0;
         p.grounded = false;
         audio.play("squeak", 0.3);
@@ -497,6 +547,7 @@ export class Game {
       (1 + (0.2 * this.load) / this.capacity);
     if (this.digClock < delay) return;
     this.digClock = 0;
+    this.hasDug = true;
     t.hp--;
     this.terrainRevision++;
     this.hitStop = 0.04;
@@ -625,6 +676,7 @@ export class Game {
       return;
     }
     this.hoard += value;
+    this.campHoard += value;
     this.best = Math.max(this.best, value);
     this.inventory = [];
     this.onDeposit(value, this.mode);
@@ -661,35 +713,30 @@ export class Game {
       this.say("The basket brings you home. Dig down, then call it with Q.");
       return;
     }
-    if (!this.wheel.active && this.battery <= 0) {
-      this.say("The wheel is resting. Find a battery or jump back up.");
-      audio.play("power_off", 0.4);
-      return;
-    }
     this.riding = true;
     this.p.vx = this.p.vy = 0;
     this.digClock = 0;
     this.basketStop = 0;
     this.lastBasketDepth = this.depth;
-    this.say("Going up! Q to step off.");
+    this.say(
+      !this.wheel.active && this.battery <= 0
+        ? "Safety winch: a slow ride home. Q to step off."
+        : "Going up! Q to step off.",
+    );
     audio.play("bell", 0.4);
   }
   private updateBasket(dt: number) {
-    if (!this.wheel.active) {
-      if (this.battery <= 0) {
-        this.riding = false;
-        this.say("Basket power ran out. Find a battery to keep climbing.");
-        return;
-      }
+    const powered = this.wheel.active || this.battery > 0;
+    if (!this.wheel.active && this.battery > 0)
       this.battery = Math.max(0, this.battery - dt);
-    }
     if (this.basketStop > 0) {
       this.basketStop -= dt;
       return;
     }
-    const speed =
-      (60 + Math.min(this.wheel.rpm, 600) * 0.4) *
-      (1 + 0.3 * this.levels.winch);
+    const speed = powered
+      ? (60 + Math.min(this.wheel.rpm, 600) * 0.4) *
+        (1 + 0.3 * this.levels.winch)
+      : 40;
     this.p.y = Math.max(SURFACE, this.p.y - speed * dt);
     // The winch pulls straight up through Pip's own shaft; clear a basket-sized passage.
     for (const x of [this.p.x - 12, this.p.x + 12])
@@ -900,8 +947,8 @@ export class Game {
     this.p.vx = Math.sign(this.p.x - sourceX || 1) * 140;
     this.p.vy = -130;
     audio.play("hurt");
-    this.shake = 0.2;
-    this.shakePower = 3;
+    this.shake = this.shakeDuration = 0.15;
+    this.shakePower = 1;
     let weight = Math.ceil(this.load * 0.3);
     while (weight > 0 && this.inventory.length) {
       const d = this.inventory.pop()!;
@@ -915,11 +962,22 @@ export class Game {
     }
   }
   earthquake() {
-    this.terrainRevision++;
     if (this.ended || !this.started) return;
+    if (this.paused) {
+      this.pendingQuakes = 1;
+      return;
+    }
+    this.terrainRevision++;
     this.quakes++;
-    this.shake = 2.5;
-    this.shakePower = 6;
+    this.shake = this.shakeDuration = 0.6;
+    this.shakePower = 3;
+    this.fallingDust(20, 1);
+    console.info("[Squeek Deep] quake", {
+      count: this.quakes,
+      settledRound: this.wheel.settledRound,
+      depth: this.depth,
+      at: new Date().toISOString(),
+    });
     audio.play("quake");
     audio.play("bell");
     this.say(`Earthquake! Round settled. Fresh treasure in the deep.`, 6);
@@ -942,8 +1000,10 @@ export class Game {
         );
       }
     }
-    this.spawnEnemy(row + 4);
-    if (this.rand() > 0.5) this.spawnEnemy(row + 7);
+    const nearby = this.enemies.filter(
+      (e) => e.hp > 0 && Math.abs(e.y - this.p.y) <= 15 * TILE,
+    ).length;
+    if (nearby < 3) this.spawnEnemy(row + 4);
     for (let i = 0; i < 6; i++) {
       const dug: { x: number; y: number }[] = [];
       for (
@@ -1015,9 +1075,9 @@ export class Game {
       this.particles.push({
         x,
         y,
-        vx: (this.rand() - 0.5) * 150,
-        vy: -50 - this.rand() * 150,
-        life: 0.4 + this.rand() * 0.6,
+        vx: (this.visualRand() - 0.5) * 150,
+        vy: -50 - this.visualRand() * 150,
+        life: 0.4 + this.visualRand() * 0.6,
         color,
         item,
       });
@@ -1217,6 +1277,25 @@ export class Game {
           }
         }
   }
+  // Amplitudes are CSS pixels, so enlarging the canvas never magnifies the shake.
+  shakeOffset() {
+    const strength =
+      this.reducedMotion || this.screenShake === "off"
+        ? 0
+        : this.screenShake === "low"
+          ? 0.5
+          : 1;
+    if (!strength || this.shake <= 0) return { x: 0, y: 0 };
+    const amplitude =
+      (this.shakePower *
+        strength *
+        Math.pow(this.shake / this.shakeDuration, 2)) /
+      Math.max(0.01, this.screenScale);
+    return {
+      x: Math.sin(this.seconds * 91) * amplitude,
+      y: Math.cos(this.seconds * 91) * amplitude * 0.7,
+    };
+  }
   draw() {
     if (!this.started) return;
     const c = this.canvas.getContext("2d", { alpha: false })!;
@@ -1228,16 +1307,9 @@ export class Game {
     const shift = Math.round(
       Math.max(-margin, Math.min(margin, WIDTH / 2 - this.p.x)),
     );
-    const sx =
-      this.shake > 0 && !this.reducedMotion
-        ? (this.rand() - 0.5) * this.shakePower * 2
-        : 0;
-    const sy =
-      this.shake > 0 && !this.reducedMotion
-        ? (this.rand() - 0.5) * this.shakePower * 2
-        : 0;
+    const { x: sx, y: sy } = this.shakeOffset();
     c.save();
-    c.translate(Math.round(sx + shift), Math.round(sy - camera));
+    c.translate(sx + shift, sy - camera);
     this.drawSurface(c);
     const start = Math.max(0, Math.floor((camera - SURFACE) / 32)),
       end = Math.min(299, Math.ceil((camera + HEIGHT - SURFACE) / 32));
@@ -1361,11 +1433,27 @@ export class Game {
         : Math.sin(this.seconds * 11) * 0.008 * this.stage;
       const hop = this.reducedMotion
         ? 0
-        : Math.sin((this.p.hop / 0.22) * Math.PI) * 4;
+        : Math.sin((this.p.hop / 0.22) * Math.PI) * 8;
       const squash =
         !this.reducedMotion && this.digAnimation > 0
           ? Math.sin(this.seconds * 16) * 0.025
           : 0;
+      if (anim === "ham_idle")
+        frame = this.blink > 0 ? 3 : Math.floor(this.seconds * 6) % 3;
+      const stretchX = this.reducedMotion
+        ? 1
+        : this.jumpStretch > 0
+          ? 0.88
+          : this.landSquash > 0
+            ? 1.15
+            : 1;
+      const stretchY = this.reducedMotion
+        ? 1
+        : this.jumpStretch > 0
+          ? 1.12
+          : this.landSquash > 0
+            ? 0.85
+            : 1;
       this.sprite(
         c,
         `hamster/${anim}.png`,
@@ -1374,8 +1462,8 @@ export class Game {
         80,
         this.p.x,
         this.p.y + 2 - hop,
-        64 * (1 + this.stage * 0.06 + wobble + squash),
-        64 * (1 - squash),
+        64 * (1 + this.stage * 0.1 + wobble + squash) * stretchX,
+        64 * (1 - squash) * stretchY,
         this.p.facing < 0,
       );
     }
@@ -1439,6 +1527,51 @@ export class Game {
     }
     c.drawImage(this.images["props/lantern.png"], 207, 88, 15, 38);
     this.icon(c, 15, 83, 143, 46);
+    // Reuse the pack's wood panels as camp crates and a trail sign.
+    for (const [x, y] of [
+      [126, 160],
+      [151, 160],
+      [139, 137],
+    ]) {
+      this.panel(c, "btn_wood", x - 11, y - 23, 24, 23);
+      c.drawImage(
+        this.images["props/beam.png"],
+        12,
+        5,
+        36,
+        30,
+        x - 9,
+        y - 21,
+        20,
+        19,
+      );
+    }
+    c.drawImage(this.images["props/beam.png"], 0, 18, 10, 50, 431, 123, 6, 37);
+    this.panel(c, "btn_wood", 408, 111, 57, 24);
+    this.text(c, "CAMP ←", 436, 125, 8, "#fff5e1", "center");
+    // Existing key art contains the camp's ferns; crop it directly, without a new asset.
+    c.drawImage(
+      this.images["keyart/title_keyart.webp"],
+      0,
+      215,
+      110,
+      65,
+      0,
+      128,
+      55,
+      32,
+    );
+    c.drawImage(this.images["props/lantern.png"], 108, 79, 14, 36);
+    const piles = Math.min(12, Math.floor(Math.log2(1 + this.campHoard / 20)));
+    for (let i = 0; i < piles; i++) {
+      c.drawImage(
+        this.images[i % 3 === 2 ? "props/ore_gems.png" : "props/ore_seeds.png"],
+        38 + (i % 4) * 11,
+        145 - Math.floor(i / 4) * 9,
+        21,
+        21,
+      );
+    }
     this.text(c, "HOARD", 83, 111, 10, "#ffce40", "center");
     this.text(c, "WINCH", 350, 87, 10, "#c7b2a2", "center");
     this.text(c, "SURFACE CAMP", 240, 64, 14, "#fff5e1", "center");
@@ -1461,13 +1594,12 @@ export class Game {
     start: number,
     end: number,
   ) {
-    if (this.depth < 20) return;
+    if (this.depth < 10) return;
     const m = this.maskContext;
     m.clearRect(0, 0, WIDTH, HEIGHT);
-    const ambient = Math.max(0.25, 1 - (this.depth / 300) * 0.75),
-      alpha = Math.max(0, 1 - ambient - (this.wheel.active ? 0.1 : 0));
+    const alpha = Math.min(0.9, 0.35 + (this.depth / 300) * 0.55);
     m.globalCompositeOperation = "source-over";
-    m.fillStyle = `rgba(8,5,17,${Math.min(0.88, alpha)})`;
+    m.fillStyle = `rgba(8,5,17,${alpha})`;
     m.fillRect(0, 0, WIDTH, HEIGHT);
     m.globalCompositeOperation = "destination-out";
     const light = (x: number, y: number, radius: number) =>
@@ -1481,7 +1613,7 @@ export class Game {
     light(
       this.p.x + shift,
       this.p.y - camera - 29,
-      (110 + this.levels.lamp * 20) * (this.wheel.active ? 1.1 : 1),
+      (96 + this.levels.lamp * 20) * (this.wheel.active ? 1.1 : 1),
     );
     for (const l of this.lanterns)
       if (Math.abs(l.y - camera - 135) < 230)
@@ -1525,16 +1657,11 @@ export class Game {
   private drawHUD(c: CanvasRenderingContext2D, margin: number) {
     const left = margin + 6,
       right = WIDTH - margin - 6;
-    const remaining = this.wheel.updated
-      ? Math.max(
-          0,
-          (1 - this.wheel.progress) * (this.wheel.practice ? 90 : 600),
-        )
-      : 600;
-    const timer =
-      this.wheel.lost || !this.wheel.updated
-        ? "—"
-        : `${Math.floor(remaining / 60)}:${String(Math.floor(remaining % 60)).padStart(2, "0")}`;
+    const timer = roundClock(
+      Date.now() / 1000,
+      this.wheel.genesis,
+      this.wheel.duration,
+    ).label;
     this.text(
       c,
       `${this.wheel.practice ? "PRACTICE" : !this.wheel.updated ? "CONNECTING" : this.wheel.lost ? "SIGNAL LOST" : this.wheel.active ? "WHEEL ACTIVE" : "WHEEL RESTING"} · ${Math.round(this.wheel.rpm)} rpm`,

@@ -1363,3 +1363,341 @@ td small {
     outline-color: Highlight;
   }
 }
+
+/* Revision: the existing art kit carries the in-game controls and panels. */
+select {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface-raised);
+  border: 1px solid var(--muted);
+  border-radius: 0;
+  padding: 8px 12px;
+  min-height: 48px;
+}
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.shop-dialog {
+  --muted: #67432a;
+  --border: #b18452;
+  color: var(--ink);
+  border: 12px solid transparent;
+  border-image: url("/assets/ui/shop_panel.png") 6 fill stretch;
+  image-rendering: pixelated;
+  background: none;
+}
+.shop-dialog .close-button {
+  color: var(--ink);
+}
+.shop-dialog .gold-text,
+.shop-dialog .shop-balance strong {
+  color: var(--ink);
+}
+.shop-dialog .inline-note {
+  background: transparent;
+}
+.shop-dialog :focus-visible {
+  outline-color: #31517d;
+}
+.shop-dialog .pixel-button {
+  color: var(--text);
+}
+.shop-dialog .pixel-button.gold {
+  color: var(--ink);
+}
+.run-details {
+  margin-block: 16px;
+}
+.run-details > summary {
+  cursor: pointer;
+  color: var(--muted);
+  min-height: 48px;
+  padding-block: 12px;
+  font-size: var(--small);
+}
+.camp-details {
+  padding-block: 20px;
+}
+.camp-details .camp-greeting {
+  margin-block-end: 16px;
+}
+.first-dig-hint,
+.settling-banner {
+  position: absolute;
+  inset-inline: 12px;
+  inset-block-end: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 8px solid transparent;
+  border-image: url("/assets/ui/hud_bar.png") 6 fill stretch;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+.first-dig-hint p {
+  font-size: var(--small);
+  line-height: 1.4;
+}
+.hint-pip {
+  flex: 0 0 40px;
+  height: 40px;
+  background: url("/assets/hamster/ham_idle.png") 0 0 / 160px 40px;
+}
+.settling-banner {
+  inset-block: 48px auto;
+  inset-inline: 50% auto;
+  translate: -50% 0;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  color: var(--gold);
+  font-size: var(--body);
+  justify-content: center;
+}
+.touch-top {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+.touch-top .pixel-button {
+  background: none;
+  border: 12px solid transparent;
+  border-image: url("/assets/ui/btn_wood.png") 6 fill stretch;
+  min-height: 48px;
+  padding: 2px 12px;
+  font-size: var(--body);
+  image-rendering: pixelated;
+}
+.touch-top .pixel-button:last-child {
+  flex: 1;
+}
+.touch-button {
+  image-rendering: pixelated;
+}
+.touch-ab .touch-button {
+  font-size: var(--body);
+}
+.results-screen {
+  position: relative;
+  isolation: isolate;
+  margin-block: 16px;
+  padding: 28px;
+  border: 12px solid transparent;
+  border-image: url("/assets/ui/hud_bar.png") 6 fill stretch;
+  image-rendering: pixelated;
+}
+.results-art {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 300px;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+.results-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+}
+.results-art:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #2a1a16, #110d1566);
+}
+.results-intro {
+  position: relative;
+}
+.result-score {
+  margin-block: 20px;
+  padding: 20px;
+  border: 12px solid transparent;
+  border-image: url("/assets/ui/shop_panel.png") 6 fill stretch;
+  color: var(--ink);
+}
+.result-score strong,
+.result-score .muted {
+  color: var(--ink);
+}
+.run-stats,
+.result-score,
+.shop-balance {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 650px) {
+  body.playing .site-header,
+  body.playing .site-footer {
+    display: none;
+  }
+  body.playing main {
+    width: 100%;
+  }
+  .game-screen {
+    width: 100%;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .mine-heading {
+    display: none;
+  }
+  .game-frame {
+    outline: 0;
+  }
+  .touch-top {
+    margin: 2px 8px 0;
+  }
+  .touch-top .pixel-button {
+    padding: 0 8px;
+    border-width: 8px;
+  }
+  .touch-controls {
+    padding: 2px 8px;
+    gap: 8px;
+  }
+  .touch-button {
+    width: 48px;
+    height: 48px;
+    border-width: 8px;
+    padding: 0;
+  }
+  .dpad {
+    grid-template-columns: repeat(3, 48px);
+    grid-template-rows: repeat(2, 48px);
+    gap: 4px;
+  }
+  .touch-ab {
+    gap: 8px;
+  }
+  .touch-ab .spit {
+    margin-block-start: 24px;
+  }
+  .mine-message {
+    min-height: 36px;
+    padding: 2px 8px;
+    font-size: var(--small);
+    line-height: 1.25;
+  }
+  .camp-panel {
+    padding: 0;
+  }
+  .camp-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin: 0;
+    padding: 2px 8px;
+  }
+  .camp-actions > .pixel-button:first-child {
+    grid-column: auto;
+  }
+  .camp-actions .pixel-button {
+    min-height: 48px;
+    padding: 0;
+    border-width: 8px;
+    font-size: var(--small);
+  }
+  .camp-actions kbd {
+    display: none;
+  }
+  .run-details {
+    margin: 0 8px;
+  }
+  .run-details > summary {
+    min-height: 48px;
+    padding-block: 14px;
+  }
+  .run-details[open] {
+    padding-inline: 8px;
+  }
+  .underground-actions {
+    margin: 0;
+    padding: 0 8px;
+  }
+  .underground-actions > .pixel-button {
+    display: none;
+  }
+  .underground-actions .wheel-status {
+    margin: 0;
+    min-height: 30px;
+    font-size: var(--small);
+  }
+  .keyboard-hint {
+    display: none;
+  }
+  .first-dig-hint {
+    inset-inline: 8px;
+    inset-block-end: 4px;
+    padding: 4px;
+    gap: 4px;
+    border-width: 6px;
+  }
+  .first-dig-hint p {
+    font-size: var(--small);
+    line-height: 1.25;
+  }
+  .hint-pip {
+    flex-basis: 32px;
+    height: 32px;
+    background-size: 128px 32px;
+  }
+  .settling-banner {
+    padding: 4px 8px;
+    font-size: var(--small);
+  }
+  .results-screen {
+    padding: 16px 12px;
+  }
+  .results-intro h1 {
+    font-size: var(--heading);
+  }
+  .results-intro p {
+    margin-block: 8px;
+  }
+  .results-pip {
+    margin-block-end: 0;
+    width: 80px;
+    height: 80px;
+    background-size: 320px 80px;
+    background-position: -240px 0;
+  }
+  .results-pip.hurt {
+    background-size: 240px 80px;
+    background-position: -160px 0;
+  }
+  .result-score {
+    margin-block: 12px;
+    padding: 8px;
+    gap: 4px;
+  }
+  .result-grid {
+    gap: 8px;
+    padding-block: 12px;
+  }
+  .result-grid strong {
+    font-size: var(--label);
+  }
+  .results-actions {
+    gap: 8px;
+    margin-block: 16px;
+  }
+  .results-actions > .pixel-button {
+    padding-inline: 2px;
+  }
+  .shop-dialog .dialog-inner {
+    padding: 12px;
+  }
+}
+@media (forced-colors: active) {
+  .shop-dialog,
+  .results-screen,
+  .result-score,
+  .first-dig-hint,
+  .settling-banner {
+    border-image: none;
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+}
