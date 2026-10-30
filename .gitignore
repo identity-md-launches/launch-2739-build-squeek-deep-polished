@@ -1,4 +1,15 @@
-node_modules/
-dist/
+# Explicit path budget: dist/** <= 5 MiB; src/** <= 512 KiB;
+# scripts/** + artifacts/** + documentation <= 512 KiB. Total additions <= 8 MiB.
+# public/FONT-LICENSE.txt <= 8 KiB (font attribution, also included in dist budget).
+# Deliver the bounded validation record and screenshots even if globally ignored.
+!artifacts/
+!artifacts/**
+# Dependencies, caches, and scratch checks are never deliverables, at any depth.
+**/node_modules/
+**/.vite/
+**/.cache/
+**/.npm/
+**/.playwright-mcp/
+test/scratch/
 __pycache__/
 *.pyc

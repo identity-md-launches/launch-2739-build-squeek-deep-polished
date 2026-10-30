@@ -1,0 +1,23 @@
+{
+  "benchmarks": [
+    {
+      "cpuThrottle": 1,
+      "samples": 120,
+      "medianMs": 5.799999952316284,
+      "p95Ms": 78.5,
+      "maxMs": 392.39999985694885,
+      "frameMedianMs": 16.699999999999818,
+      "frameP95Ms": 266.60000000000036
+    },
+    {
+      "cpuThrottle": 4,
+      "samples": 120,
+      "medianMs": 20,
+      "p95Ms": 192.29999995231628,
+      "maxMs": 411.40000009536743,
+      "frameMedianMs": 49.899999999999636,
+      "frameP95Ms": 350
+    }
+  ],
+  "errors": []
+}

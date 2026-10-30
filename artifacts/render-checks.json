@@ -1,0 +1,21 @@
+{
+  "width": 390,
+  "soundName": "Sound on: mute sound",
+  "playTop": 476.28125,
+  "playBottom": 552.28125,
+  "viewportHeight": 844,
+  "canvases": 1,
+  "fontLoaded": true,
+  "horizontalOverflow": false,
+  "loadEventMs": 511.7999999523163,
+  "readyObservedMs": 5405.399999856949,
+  "touch": {
+    "coarse": true,
+    "buttons": 6,
+    "aName": "A: Jump",
+    "bName": "B: Spit cheek contents",
+    "basketCenter": 194.9921875,
+    "containerCenter": 195
+  },
+  "errors": []
+}

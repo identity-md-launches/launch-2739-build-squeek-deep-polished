@@ -1,0 +1,537 @@
+{
+ "hamster/ham_idle.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 4,
+  "fps": 6,
+  "loop": true,
+  "use": "idle breathe + blink"
+ },
+ "hamster/ham_walk.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 4,
+  "fps": 10,
+  "loop": true,
+  "use": "walk cycle (contact/passing x2)"
+ },
+ "hamster/ham_dig.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 4,
+  "fps": 12,
+  "loop": true,
+  "use": "side dig swing (face right; flip for left)"
+ },
+ "hamster/ham_jump.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 4,
+  "fps": 10,
+  "loop": false,
+  "use": "crouch, rise, apex, fall"
+ },
+ "hamster/ham_hurt.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 3,
+  "fps": 8,
+  "loop": false,
+  "use": "hit, knocked, dizzy"
+ },
+ "hamster/ham_ride.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 4,
+  "fps": 6,
+  "loop": true,
+  "use": "riding elevator basket (sway + wave); rope continues upward via drawn line from (40,0)"
+ },
+ "hamster/ham_cheeks.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 4,
+  "fps": 0,
+  "loop": false,
+  "use": "cheek stage 0-3 (index by load)"
+ },
+ "enemies/mole_shade.png": {
+  "frameW": 72,
+  "frameH": 64,
+  "frames": 3,
+  "fps": 6,
+  "loop": true,
+  "use": "0 float,1 claws up (telegraph),2 lunge; ghost: outer glow ring + tail are semi-transparent (keep alpha)"
+ },
+ "enemies/root_beetle.png": {
+  "frameW": 72,
+  "frameH": 64,
+  "frames": 3,
+  "fps": 8,
+  "loop": true,
+  "use": "walk"
+ },
+ "enemies/glow_worm.png": {
+  "frameW": 72,
+  "frameH": 64,
+  "frames": 3,
+  "fps": 6,
+  "loop": true,
+  "use": "wriggle; lantern glow = light source"
+ },
+ "enemies/crystal_bat.png": {
+  "frameW": 72,
+  "frameH": 64,
+  "frames": 3,
+  "fps": 10,
+  "loop": true,
+  "use": "flap; frames 0,1,2,1"
+ },
+ "enemies/magma_slug.png": {
+  "frameW": 72,
+  "frameH": 64,
+  "frames": 3,
+  "fps": 5,
+  "loop": true,
+  "use": "crawl"
+ },
+ "items/items.png": {
+  "frameW": 32,
+  "frameH": 32,
+  "frames": 16,
+  "fps": 0,
+  "loop": false,
+  "use": "icon atlas, order: seed_sunflower,seed_pumpkin,acorn_gold,walnut,amber,emerald,sapphire,ruby,amethyst,crystal_shard,gold_nugget,fossil,magma_heart,heart,battery,chest",
+  "order": [
+   "seed_sunflower",
+   "seed_pumpkin",
+   "acorn_gold",
+   "walnut",
+   "amber",
+   "emerald",
+   "sapphire",
+   "ruby",
+   "amethyst",
+   "crystal_shard",
+   "gold_nugget",
+   "fossil",
+   "magma_heart",
+   "heart",
+   "battery",
+   "chest"
+  ]
+ },
+ "ui/hud_bar.png": {
+  "w": 125,
+  "h": 42,
+  "use": "UI; draw with 9-slice (border ~6px) at integer scale 2-3x"
+ },
+ "ui/shop_panel.png": {
+  "w": 116,
+  "h": 61,
+  "use": "UI; draw with 9-slice (border ~6px) at integer scale 2-3x"
+ },
+ "ui/btn_gold.png": {
+  "w": 69,
+  "h": 38,
+  "use": "UI; draw with 9-slice (border ~6px) at integer scale 2-3x"
+ },
+ "ui/btn_green.png": {
+  "w": 81,
+  "h": 38,
+  "use": "UI; draw with 9-slice (border ~6px) at integer scale 2-3x"
+ },
+ "ui/btn_wood.png": {
+  "w": 49,
+  "h": 38,
+  "use": "UI; draw with 9-slice (border ~6px) at integer scale 2-3x"
+ },
+ "ui/cheek_meter.png": {
+  "w": 115,
+  "h": 40,
+  "use": "UI; draw with 9-slice (border ~6px) at integer scale 2-3x"
+ },
+ "ui/depth_gauge.png": {
+  "w": 20,
+  "h": 56,
+  "use": "UI; draw with 9-slice (border ~6px) at integer scale 2-3x"
+ },
+ "ui/slot.png": {
+  "w": 45,
+  "h": 46,
+  "use": "UI; draw with 9-slice (border ~6px) at integer scale 2-3x"
+ },
+ "props/wheel_off.png": {
+  "w": 102,
+  "h": 63
+ },
+ "props/wheel_on.png": {
+  "w": 103,
+  "h": 71
+ },
+ "props/basket_ride_alt.png": {
+  "w": 68,
+  "h": 87
+ },
+ "props/lantern.png": {
+  "w": 29,
+  "h": 74
+ },
+ "props/beam.png": {
+  "w": 119,
+  "h": 72
+ },
+ "props/ore_seeds.png": {
+  "w": 32,
+  "h": 32
+ },
+ "props/ore_gems.png": {
+  "w": 32,
+  "h": 32
+ },
+ "props/rock_cracked.png": {
+  "w": 32,
+  "h": 32
+ },
+ "tiles/tiles.png": {
+  "frameW": 32,
+  "frameH": 32,
+  "cols": 3,
+  "rows": 6,
+  "use": "row=layer (topsoil,clay,stone,crystal,fungal,magma); col0,col1 = solid variants (seamless), col2 = dug-out background wall",
+  "layers": [
+   "topsoil",
+   "clay",
+   "stone",
+   "crystal",
+   "fungal",
+   "magma"
+  ]
+ },
+ "palette.png": {
+  "colors": 128,
+  "hex": [
+   "#ffffff",
+   "#5a3a22",
+   "#ffce40",
+   "#fff5e1",
+   "#ff8a20",
+   "#ffd84a",
+   "#beffa0",
+   "#8ce6ff",
+   "#1e1218",
+   "#ff6eb4",
+   "#050303",
+   "#170402",
+   "#2b1a16",
+   "#2e0802",
+   "#490703",
+   "#6e1110",
+   "#7a554d",
+   "#98180c",
+   "#c31e0b",
+   "#eb4317",
+   "#271208",
+   "#3a1608",
+   "#442415",
+   "#491b06",
+   "#54270b",
+   "#545045",
+   "#5f2e0f",
+   "#6e340d",
+   "#70381b",
+   "#794613",
+   "#7a7469",
+   "#814628",
+   "#834011",
+   "#8c4108",
+   "#96470b",
+   "#987145",
+   "#9d6035",
+   "#9e8d81",
+   "#9e5a27",
+   "#a55006",
+   "#aa6826",
+   "#af5432",
+   "#b67c45",
+   "#b77832",
+   "#b9771e",
+   "#bc6309",
+   "#bd8b58",
+   "#c7673c",
+   "#c87a38",
+   "#d2a366",
+   "#d3750e",
+   "#dd8348",
+   "#dd9258",
+   "#df8a1c",
+   "#e3a671",
+   "#e48412",
+   "#e7b477",
+   "#e8a830",
+   "#e89a66",
+   "#e99a30",
+   "#eaa759",
+   "#f2a515",
+   "#f3c58b",
+   "#f7d59c",
+   "#fbbb31",
+   "#fcdba7",
+   "#f7ebc5",
+   "#fdde67",
+   "#fff19f",
+   "#3e5406",
+   "#5c6258",
+   "#a9ce80",
+   "#c2e191",
+   "#a6f07e",
+   "#3d8926",
+   "#629262",
+   "#58b83a",
+   "#72ba80",
+   "#8cf0cc",
+   "#40514d",
+   "#2e8c80",
+   "#4cc0a4",
+   "#d1f5f6",
+   "#414960",
+   "#505a75",
+   "#31517d",
+   "#497094",
+   "#2369a9",
+   "#8190ab",
+   "#0b4bae",
+   "#1f8fde",
+   "#cbd5e7",
+   "#57c7ef",
+   "#0c112d",
+   "#373448",
+   "#132154",
+   "#312b60",
+   "#46397a",
+   "#331e80",
+   "#686b8b",
+   "#2532bb",
+   "#a29fc4",
+   "#9678f0",
+   "#bdbcf2",
+   "#241e2d",
+   "#2b233c",
+   "#31264d",
+   "#3f2c54",
+   "#5f4a91",
+   "#4929a1",
+   "#7d61aa",
+   "#6537c3",
+   "#8948dd",
+   "#ad5ded",
+   "#d376f5",
+   "#a28aa0",
+   "#efa0f8",
+   "#110b0f",
+   "#1e1218",
+   "#41353a",
+   "#4d3844",
+   "#58444e",
+   "#744a63",
+   "#8c707a",
+   "#c8b1b9",
+   "#d64b9d",
+   "#fbbfeb",
+   "#521825"
+  ]
+ },
+ "keyart/title_keyart.png": {
+  "w": 1280,
+  "h": 720,
+  "use": "title screen background / og:image (title baked in)"
+ },
+ "share/share_bg.png": {
+  "w": 1200,
+  "h": 630,
+  "use": "share card bg; text safe zone x 470-1160, y 60-570"
+ },
+ "fonts/PixelifySans.ttf": {
+  "use": "UI/HUD font (SIL OFL 1.1, Google Fonts Pixelify Sans)"
+ },
+ "share/share_card_example.png": {
+  "w": 1200,
+  "h": 630,
+  "use": "reference only: how text is laid out on share_bg"
+ },
+ "mock_gameplay_target.png": {
+  "w": 960,
+  "h": 540,
+  "use": "reference only: target in-game look (not shipped as gameplay)"
+ },
+ "audio/dig.ogg": {
+  "use": "each pick hit"
+ },
+ "audio/break.ogg": {
+  "use": "tile destroyed"
+ },
+ "audio/pickup_seed.ogg": {
+  "use": "seed collected"
+ },
+ "audio/pickup_gem.ogg": {
+  "use": "gem collected"
+ },
+ "audio/squeak.ogg": {
+  "use": "cheeks full / jump"
+ },
+ "audio/hurt.ogg": {
+  "use": "damage"
+ },
+ "audio/coin.ogg": {
+  "use": "deposit hoard at surface"
+ },
+ "audio/upgrade.ogg": {
+  "use": "buy upgrade"
+ },
+ "audio/click.ogg": {
+  "use": "UI click"
+ },
+ "audio/bell.ogg": {
+  "use": "round settled / depth record"
+ },
+ "audio/quake.ogg": {
+  "use": "earthquake on round settle"
+ },
+ "audio/power_on.ogg": {
+  "use": "wheel IDLE->ACTIVE"
+ },
+ "audio/power_off.ogg": {
+  "use": "wheel ACTIVE->IDLE"
+ },
+ "audio/music_loop.ogg": {
+  "use": "background loop 19.2s, seamless"
+ },
+ "hamster/ham_walk6.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 6,
+  "fps": 12,
+  "loop": true,
+  "use": "optional smoother 6-frame walk cycle"
+ },
+ "hamster/ham_dig_down.png": {
+  "frameW": 80,
+  "frameH": 80,
+  "frames": 4,
+  "fps": 12,
+  "loop": true,
+  "use": "dig downward: wind-up, swing, impact (spark+chips), recover"
+ },
+ "ui/2x/hud_bar.png": {
+  "w": 250,
+  "h": 84,
+  "scale": 2,
+  "border": 12,
+  "use": "pre-scaled nearest-neighbour copy of ui/hud_bar.png (9-slice border 12px)"
+ },
+ "ui/3x/hud_bar.png": {
+  "w": 375,
+  "h": 126,
+  "scale": 3,
+  "border": 18,
+  "use": "pre-scaled nearest-neighbour copy of ui/hud_bar.png (9-slice border 18px)"
+ },
+ "ui/2x/shop_panel.png": {
+  "w": 232,
+  "h": 122,
+  "scale": 2,
+  "border": 12,
+  "use": "pre-scaled nearest-neighbour copy of ui/shop_panel.png (9-slice border 12px)"
+ },
+ "ui/3x/shop_panel.png": {
+  "w": 348,
+  "h": 183,
+  "scale": 3,
+  "border": 18,
+  "use": "pre-scaled nearest-neighbour copy of ui/shop_panel.png (9-slice border 18px)"
+ },
+ "ui/2x/btn_gold.png": {
+  "w": 138,
+  "h": 76,
+  "scale": 2,
+  "border": 12,
+  "use": "pre-scaled nearest-neighbour copy of ui/btn_gold.png (9-slice border 12px)"
+ },
+ "ui/3x/btn_gold.png": {
+  "w": 207,
+  "h": 114,
+  "scale": 3,
+  "border": 18,
+  "use": "pre-scaled nearest-neighbour copy of ui/btn_gold.png (9-slice border 18px)"
+ },
+ "ui/2x/btn_green.png": {
+  "w": 162,
+  "h": 76,
+  "scale": 2,
+  "border": 12,
+  "use": "pre-scaled nearest-neighbour copy of ui/btn_green.png (9-slice border 12px)"
+ },
+ "ui/3x/btn_green.png": {
+  "w": 243,
+  "h": 114,
+  "scale": 3,
+  "border": 18,
+  "use": "pre-scaled nearest-neighbour copy of ui/btn_green.png (9-slice border 18px)"
+ },
+ "ui/2x/btn_wood.png": {
+  "w": 98,
+  "h": 76,
+  "scale": 2,
+  "border": 12,
+  "use": "pre-scaled nearest-neighbour copy of ui/btn_wood.png (9-slice border 12px)"
+ },
+ "ui/3x/btn_wood.png": {
+  "w": 147,
+  "h": 114,
+  "scale": 3,
+  "border": 18,
+  "use": "pre-scaled nearest-neighbour copy of ui/btn_wood.png (9-slice border 18px)"
+ },
+ "ui/2x/cheek_meter.png": {
+  "w": 230,
+  "h": 80,
+  "scale": 2,
+  "border": 12,
+  "use": "pre-scaled nearest-neighbour copy of ui/cheek_meter.png (9-slice border 12px)"
+ },
+ "ui/3x/cheek_meter.png": {
+  "w": 345,
+  "h": 120,
+  "scale": 3,
+  "border": 18,
+  "use": "pre-scaled nearest-neighbour copy of ui/cheek_meter.png (9-slice border 18px)"
+ },
+ "ui/2x/depth_gauge.png": {
+  "w": 40,
+  "h": 112,
+  "scale": 2,
+  "border": 12,
+  "use": "pre-scaled nearest-neighbour copy of ui/depth_gauge.png (9-slice border 12px)"
+ },
+ "ui/3x/depth_gauge.png": {
+  "w": 60,
+  "h": 168,
+  "scale": 3,
+  "border": 18,
+  "use": "pre-scaled nearest-neighbour copy of ui/depth_gauge.png (9-slice border 18px)"
+ },
+ "ui/2x/slot.png": {
+  "w": 90,
+  "h": 92,
+  "scale": 2,
+  "border": 12,
+  "use": "pre-scaled nearest-neighbour copy of ui/slot.png (9-slice border 12px)"
+ },
+ "ui/3x/slot.png": {
+  "w": 135,
+  "h": 138,
+  "scale": 3,
+  "border": 18,
+  "use": "pre-scaled nearest-neighbour copy of ui/slot.png (9-slice border 18px)"
+ }
+}

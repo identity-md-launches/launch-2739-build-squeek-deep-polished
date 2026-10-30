@@ -1,0 +1,55 @@
+{
+  "build": "passed",
+  "typecheck": "passed (npm run build runs tsc --noEmit before Vite)",
+  "simulation_checks": 19,
+  "extended_checks": 4,
+  "chromium_interaction_checks": 31,
+  "browser_scripts": [
+    {
+      "script": "browser-test.mjs",
+      "exitCode": 0
+    },
+    {
+      "script": "touch-test.mjs",
+      "exitCode": 0
+    },
+    {
+      "script": "wallet-browser.mjs",
+      "exitCode": 0
+    },
+    {
+      "script": "shop-api.mjs",
+      "exitCode": 0
+    },
+    {
+      "script": "recovery.mjs",
+      "exitCode": 0
+    }
+  ],
+  "deep_render_cases_m": [
+    10,
+    60,
+    110,
+    170,
+    230,
+    280
+  ],
+  "design_checks_passed": 16,
+  "design_checks_total": 16,
+  "webkit": "Unavailable: liblcms2.so.2 missing; no WebKit pass claimed",
+  "phone_fps": "Not physically verified",
+  "bundle_files": [
+    "dist/bundle/index-Da_vqJro.css",
+    "dist/bundle/index-CvzvftcU.js"
+  ],
+  "source_sha256": {
+    "src/assets.ts": "b57290a8d2c3d743ead30535a85cce1abae89b7a637db7c52b05f49a81153746",
+    "src/engine.ts": "4de347771f1483acf161cc4e2364585051c5b63e398ebe74e6eb3419a5e1da28",
+    "src/main.tsx": "99fe5eec57c7ddf44bbc583675e20ad02c710823c9e6f85c34054373498b2b9a",
+    "src/model.ts": "7939d599c48ea961cb6f529cef7672c2618ff48a44a06a2b09274fb94d4a93d8",
+    "src/share.ts": "7b9bdc6c50e4b44d1679d725417caec58bf5a32c11065b958cb05b711b326aae",
+    "src/style.css": "4567f19a1af06ce52650ade6dc1721a82870defa56ee58bc3e68e2b1b784b6e5",
+    "src/wallet.ts": "16ebee0a3835f951d6d2356b42e8f344930dcdc486acec0c282ded6ced001b1a",
+    "src/wheel.ts": "3541bd2c65447117c2b700f76fccedbdecda736628c23c64da222e87cc8fca0b"
+  }
+}

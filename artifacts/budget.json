@@ -1,0 +1,18 @@
+{
+  "limit_bytes": 8388608,
+  "dist_limit_bytes": 5242880,
+  "source_limit_bytes": 524288,
+  "documentation_scripts_artifacts_limit_bytes": 524288,
+  "font_license_limit_bytes": 8192,
+  "protected_configuration_and_dependencies": "unchanged",
+  "original_runtime_asset_files_verified": 67,
+  "static_export_files": 72,
+  "dist_index_included": true,
+  "dependency_or_cache_files_included": 0,
+  "symlinks_included": 0,
+  "eligible_new_or_modified_file_bytes": 2821102,
+  "dist_bytes": 2299767,
+  "source_bytes": 151131,
+  "documentation_scripts_artifacts_bytes": 365716,
+  "font_license_bytes": 4488
+}
