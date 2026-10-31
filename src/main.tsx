@@ -168,6 +168,7 @@ function App() {
   const [scale, setScale] = useState(1);
   const [coarse, setCoarse] = useState(false);
   const [showHint, setShowHint] = useState(!save.hintSeen);
+  const touchInputs = useRef(new Map<string, number | undefined>());
 
   useEffect(() => {
     if (!store("squeekdeep.v1.save", save)) setStorageError(true);
@@ -331,6 +332,16 @@ function App() {
       if (modal) engine.current.clearInput();
     }
   }, [screen, modal]);
+  useEffect(() => {
+    const inputs = touchInputs.current;
+    return () => {
+      for (const [key, timer] of inputs) {
+        window.clearTimeout(timer);
+        engine.current?.release(key);
+      }
+      inputs.clear();
+    };
+  }, [screen, modal, coarse]);
   useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
       if (
@@ -545,6 +556,20 @@ function App() {
       setNotice((e as Error).message);
     }
   };
+  const cancelTouchPulse = (key: string) => {
+    window.clearTimeout(touchInputs.current.get(key));
+    touchInputs.current.delete(key);
+  };
+  const pressTouch = (key: string) => {
+    cancelTouchPulse(key);
+    touchInputs.current.set(key, undefined);
+    audio.unlock();
+    engine.current?.press(key);
+  };
+  const releaseTouch = (key: string) => {
+    cancelTouchPulse(key);
+    engine.current?.release(key);
+  };
   const touchButton = (
     key: string,
     label: string,
@@ -558,15 +583,43 @@ function App() {
       onPointerDown={(e) => {
         e.preventDefault();
         e.currentTarget.setPointerCapture(e.pointerId);
-        audio.unlock();
-        engine.current?.press(key);
+        pressTouch(key);
       }}
       onPointerUp={(e) => {
         e.preventDefault();
-        engine.current?.release(key);
+        releaseTouch(key);
       }}
-      onPointerCancel={() => engine.current?.release(key)}
-      onLostPointerCapture={() => engine.current?.release(key)}
+      onPointerCancel={() => releaseTouch(key)}
+      onLostPointerCapture={() => releaseTouch(key)}
+      onKeyDown={(e) => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        e.preventDefault();
+        e.stopPropagation();
+        if (!e.repeat) pressTouch(key);
+      }}
+      onKeyUp={(e) => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        e.preventDefault();
+        e.stopPropagation();
+        releaseTouch(key);
+      }}
+      onBlur={() => releaseTouch(key)}
+      onClick={(e) => {
+        // Pointer taps already ran on pointerdown; Enter/Space suppress native clicks.
+        if (e.detail !== 0) return;
+        const game = engine.current;
+        if (!game) return;
+        releaseTouch(key);
+        pressTouch(key);
+        // Give click-only input a short simulated hold, even with a slow renderer.
+        const until = game.seconds + 0.6;
+        const pulse = () => {
+          if (game.paused || game.ended || game.seconds >= until)
+            releaseTouch(key);
+          else touchInputs.current.set(key, window.setTimeout(pulse, 50));
+        };
+        pulse();
+      }}
     >
       {text}
     </button>

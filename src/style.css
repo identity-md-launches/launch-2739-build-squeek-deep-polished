@@ -1427,7 +1427,6 @@ summary:focus-visible {
 .settling-banner {
   position: absolute;
   inset-inline: 12px;
-  inset-block-end: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1436,6 +1435,10 @@ summary:focus-visible {
   border-image: url("/assets/ui/hud_bar.png") 6 fill stretch;
   image-rendering: pixelated;
   pointer-events: none;
+}
+.first-dig-hint {
+  /* Keep the bottom 32 of 270 canvas pixels clear for health and hoard. */
+  inset-block-end: calc(11.852% + 4px);
 }
 .first-dig-hint p {
   font-size: var(--small);
@@ -1628,7 +1631,6 @@ summary:focus-visible {
   }
   .first-dig-hint {
     inset-inline: 8px;
-    inset-block-end: 4px;
     padding: 4px;
     gap: 4px;
     border-width: 6px;

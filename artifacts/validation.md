@@ -1,4 +1,6 @@
-# Revision validation: Squeek Deep (01a9514 follow-up)
+# Earlier A–G revision validation: Squeek Deep (01a9514 follow-up)
+
+**Historical report.** The subsequent reviewer follow-up is documented in [control-review.md](control-review.md), with current measurements in `control-review.json`. It corrects the hint/HUD overlap and native activation of touch controls. The observations below belong to the earlier accepted revision; its long live checks and full wallet/share walkthrough were not repeated for the two reported findings.
 
 These are checks performed by this worker, not independent certification. The verifier checks paths and bytes. This report supersedes the prior release’s validation notes; unchanged `performance.json` and unprefixed screenshots are historical inputs, not new measurements.
 

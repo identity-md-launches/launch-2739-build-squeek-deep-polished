@@ -42,6 +42,8 @@ The desktop title menu overlays the lower left of the key art. On phones, the ar
 
 `ResizeObserver` in `src/main.tsx` selects integer game scales 1–3 when space allows, and **available width / 480** below 480px. No part of the 480×270 canvas is cropped. CSS `image-rendering: pixelated` and disabled canvas smoothing preserve the art. Observed phone canvases: **390×219.375** and **320×180**, both at `x=0, y=0`. Every screen change scrolls to the top.
 
+The first-dig hint reserves the bottom **32 logical canvas pixels** for health and hoard. `.first-dig-hint` uses `inset-block-end: calc(11.852% + 4px)` at every breakpoint (32/270 of the game-frame height plus a 4px gap); phone rules only adjust its horizontal inset and internal spacing. The same position applies when Settings restores the hint underground. It remains nonblocking and dismisses on the first actual dig.
+
 At widths up to 650px, gameplay hides the outer header/footer and its duplicate heading. Pause and Call basket sit directly below the canvas; the 48px directional pad, Spit, and Jump follow. The three camp actions share one row, wrapping their labels inside their targets. Primary controls fit at 320×568. Secondary statistics, bank/supply data, leaderboard, wallet, and miner name remain in a native Camp & run details disclosure, collapsed on phones and initially expanded on desktop. On desktop the run statistics form four columns; the narrow disclosure uses two. Keyboard hints remain on desktop.
 
 Shop purchase controls move below their descriptions on phones. Dialogs stay within 16px side margins and scroll internally. Results actions use a two-column phone grid with Share spanning the row.
@@ -75,7 +77,7 @@ Keep the original pixel silhouettes, square form fields, sprite icons, and wood/
 
 Screen shake defaults to Low. Normal is at most 3 CSS pixels, Low at most 1.5, with a 0.6s quadratic decay; hurt shake is at most 1px for 0.15s. Translation is divided by the canvas CSS scale, and uses sine/cosine without consuming gameplay randomness. Reduced motion in settings or the system forces shake off, disables wheel rotation, and removes cheek wobble, jump/landing squash, and pickup hops. Button press scaling is 0.96 for 150ms only when the system permits motion.
 
-Menus and lost focus pause the simulation and clear held input. A paused mine queues at most one settlement; an existing warning also coalesces later notices. The warning and quake wait for active play. Native buttons retain Space/Enter behavior. Physical keyboard codes support arrows and WASD independent of the active keyboard layout; composing letter events are ignored while arrows remain usable with an IME.
+Menus and lost focus pause the simulation and clear held input. A paused mine queues at most one settlement; an existing warning also coalesces later notices. The warning and quake wait for active play. Native buttons retain Space/Enter behavior. The `touchButton` pattern in `src/main.tsx` holds its mapped game input on pointer or Enter/Space press and releases on key/pointer release, cancellation, or blur. A click-only assistive activation gives a 0.6s simulation-time pulse so movement/digging can advance even with a slow renderer; pointer-generated clicks and key autorepeat do not trigger a second action. A new hold cancels the pulse timer; leaving the screen, opening a modal, or removing the controls clears tracked input. Physical keyboard codes support arrows and WASD independent of the active keyboard layout; composing letter events are ignored while arrows remain usable with an IME.
 
 ## Persistence and data
 
@@ -95,4 +97,4 @@ Optional wallet discovery/sign-in, share flows, and Sepolia-only zero-value self
 - Keep stateful information explicit: local rankings, simulated Practice, unavailable live data, compact token units, and Sepolia gas wording.
 - Keep visual randomness separate from seeded gameplay. Do not replace a real settlement with a projected block or use wheel progress as the clock.
 
-Design guidance: Jakub Krehel’s Better Interface (MIT), with documentation guidance adapted from Paul Bakaus’s Impeccable (Apache-2.0). Notices/licenses remain in `docs/DESIGN-GUIDANCE-*`. Rendered coverage and limitations are in `artifacts/validation.md`.
+Design guidance: Jakub Krehel’s Better Interface (MIT), with documentation guidance adapted from Paul Bakaus’s Impeccable (Apache-2.0). Notices/licenses remain in `docs/DESIGN-GUIDANCE-*`. Current follow-up coverage and limitations are in `artifacts/control-review.md`; earlier A–G validation remains in `artifacts/validation.md`.

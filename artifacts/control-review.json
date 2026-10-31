@@ -1,0 +1,1239 @@
+{
+  "scope": "HUD hint and touch-control activation follow-up",
+  "productionBuild": "passed: npm run build (tsc --noEmit && vite build)",
+  "existingRegressionGroups": 14,
+  "reproducedBefore": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "freshHint": {
+        "x": 8,
+        "y": 160.375,
+        "width": 374,
+        "height": 55,
+        "top": 160.375,
+        "right": 382,
+        "bottom": 215.375,
+        "left": 8
+      },
+      "hud": {
+        "left": 4.875,
+        "right": 144.625,
+        "top": 193.375,
+        "bottom": 215.3125
+      },
+      "restoredOverlap": true,
+      "restoredDepth": 2,
+      "spit": [
+        {
+          "activation": "Enter",
+          "before": 1,
+          "load": 1,
+          "boost": 0
+        },
+        {
+          "activation": "Space",
+          "before": 1,
+          "load": 1,
+          "boost": 0
+        },
+        {
+          "activation": "element.click()",
+          "load": 1,
+          "boost": 0
+        },
+        {
+          "activation": "pointer",
+          "load": 0,
+          "boost": 1.9165999999999983
+        }
+      ],
+      "pageConsoleErrors": []
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "freshHint": {
+        "x": 8,
+        "y": 103.5,
+        "width": 304,
+        "height": 72.5,
+        "top": 103.5,
+        "right": 312,
+        "bottom": 176,
+        "left": 8
+      },
+      "hud": {
+        "left": 4,
+        "right": 118.66666666666667,
+        "top": 158.66666666666666,
+        "bottom": 176.66666666666666
+      },
+      "restoredOverlap": true,
+      "restoredDepth": 2,
+      "spit": [
+        {
+          "activation": "Enter",
+          "before": 2,
+          "load": 2,
+          "boost": 0
+        },
+        {
+          "activation": "Space",
+          "before": 2,
+          "load": 2,
+          "boost": 0
+        },
+        {
+          "activation": "element.click()",
+          "load": 2,
+          "boost": 0
+        },
+        {
+          "activation": "pointer",
+          "load": 0,
+          "boost": 1.9000000000000001
+        }
+      ],
+      "pageConsoleErrors": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "freshHint": {
+        "x": 172,
+        "y": 644.09375,
+        "width": 1096,
+        "height": 72,
+        "top": 644.09375,
+        "right": 1268,
+        "bottom": 716.09375,
+        "left": 172
+      },
+      "hud": {
+        "left": 252,
+        "right": 596,
+        "top": 662.09375,
+        "bottom": 716.09375
+      },
+      "restoredOverlap": true,
+      "restoredDepth": 2,
+      "spit": [],
+      "pageConsoleErrors": []
+    }
+  ],
+  "browsers": {
+    "chromium": [
+      {
+        "browser": "chromium",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "fresh": {
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 219.375,
+            "top": 0,
+            "right": 390,
+            "bottom": 219.375,
+            "left": 0
+          },
+          "hint": {
+            "x": 8,
+            "y": 134.375,
+            "width": 374,
+            "height": 55,
+            "top": 134.375,
+            "right": 382,
+            "bottom": 189.375,
+            "left": 8
+          },
+          "hudTop": 193.375,
+          "gap": 4,
+          "scrollWidth": 390,
+          "paused": false,
+          "depth": 0
+        },
+        "restored": {
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 219.375,
+            "top": 0,
+            "right": 390,
+            "bottom": 219.375,
+            "left": 0
+          },
+          "hint": {
+            "x": 8,
+            "y": 134.375,
+            "width": 374,
+            "height": 55,
+            "top": 134.375,
+            "right": 382,
+            "bottom": 189.375,
+            "left": 8
+          },
+          "hudTop": 193.375,
+          "gap": 4,
+          "scrollWidth": 390,
+          "paused": false,
+          "depth": 2
+        },
+        "targets": [
+          {
+            "label": "Pause",
+            "x": 8,
+            "y": 221.375,
+            "width": 82,
+            "height": 48,
+            "top": 221.375,
+            "right": 90,
+            "bottom": 269.375,
+            "left": 8
+          },
+          {
+            "label": "Call basket \u2191",
+            "x": 98,
+            "y": 221.375,
+            "width": 284,
+            "height": 48,
+            "top": 221.375,
+            "right": 382,
+            "bottom": 269.375,
+            "left": 98
+          },
+          {
+            "label": "Jump up",
+            "x": 60,
+            "y": 271.375,
+            "width": 48,
+            "height": 48,
+            "top": 271.375,
+            "right": 108,
+            "bottom": 319.375,
+            "left": 60
+          },
+          {
+            "label": "Move and dig left",
+            "x": 8,
+            "y": 323.375,
+            "width": 48,
+            "height": 48,
+            "top": 323.375,
+            "right": 56,
+            "bottom": 371.375,
+            "left": 8
+          },
+          {
+            "label": "Dig down",
+            "x": 60,
+            "y": 323.375,
+            "width": 48,
+            "height": 48,
+            "top": 323.375,
+            "right": 108,
+            "bottom": 371.375,
+            "left": 60
+          },
+          {
+            "label": "Move and dig right",
+            "x": 112,
+            "y": 323.375,
+            "width": 48,
+            "height": 48,
+            "top": 323.375,
+            "right": 160,
+            "bottom": 371.375,
+            "left": 112
+          },
+          {
+            "label": "Spit cheek contents",
+            "x": 278,
+            "y": 309.375,
+            "width": 48,
+            "height": 48,
+            "top": 309.375,
+            "right": 326,
+            "bottom": 357.375,
+            "left": 278
+          },
+          {
+            "label": "Jump",
+            "x": 334,
+            "y": 297.375,
+            "width": 48,
+            "height": 48,
+            "top": 297.375,
+            "right": 382,
+            "bottom": 345.375,
+            "left": 334
+          },
+          {
+            "label": "Deposit haul F",
+            "x": 8,
+            "y": 411.375,
+            "width": 120.65625,
+            "height": 48,
+            "top": 411.375,
+            "right": 128.65625,
+            "bottom": 459.375,
+            "left": 8
+          },
+          {
+            "label": "Visit shop",
+            "x": 134.65625,
+            "y": 411.375,
+            "width": 120.671875,
+            "height": 48,
+            "top": 411.375,
+            "right": 255.328125,
+            "bottom": 459.375,
+            "left": 134.65625
+          },
+          {
+            "label": "Retire safely",
+            "x": 261.328125,
+            "y": 411.375,
+            "width": 120.65625,
+            "height": 48,
+            "top": 411.375,
+            "right": 381.984375,
+            "bottom": 459.375,
+            "left": 261.328125
+          }
+        ],
+        "checks": [
+          "Fresh hint and Settings-restored hint clear both HUD strips; first dig persists dismissal",
+          "Jump up: Enter performs jump, releases, no duplicate",
+          "Jump up: Space performs jump, releases, no duplicate",
+          "Jump up: click-only performs jump, releases, no duplicate",
+          "Jump up: pointer performs jump, releases, no duplicate",
+          "Move and dig left: Enter performs left, releases, no duplicate",
+          "Move and dig left: Space performs left, releases, no duplicate",
+          "Move and dig left: click-only performs left, releases, no duplicate",
+          "Move and dig left: pointer performs left, releases, no duplicate",
+          "Dig down: Enter performs down, releases, no duplicate",
+          "Dig down: Space performs down, releases, no duplicate",
+          "Dig down: click-only performs down, releases, no duplicate",
+          "Dig down: pointer performs down, releases, no duplicate",
+          "Move and dig right: Enter performs right, releases, no duplicate",
+          "Move and dig right: Space performs right, releases, no duplicate",
+          "Move and dig right: click-only performs right, releases, no duplicate",
+          "Move and dig right: pointer performs right, releases, no duplicate",
+          "Spit cheek contents: Enter performs spit, releases, no duplicate",
+          "Spit cheek contents: Space performs spit, releases, no duplicate",
+          "Spit cheek contents: click-only performs spit, releases, no duplicate",
+          "Spit cheek contents: pointer performs spit, releases, no duplicate",
+          "Jump: Enter performs jump, releases, no duplicate",
+          "Jump: Space performs jump, releases, no duplicate",
+          "Jump: click-only performs jump, releases, no duplicate",
+          "Jump: pointer performs jump, releases, no duplicate",
+          "Keyboard hold releases on blur",
+          "A real hold replaces a click-only pulse without an early timeout release",
+          "Pause cancels held/pulsed controls without replay on resume",
+          "Emulated touchscreen Spit tap fires once",
+          "Retire \u2192 Dig again restores top; dismissed hint stays hidden after reload"
+        ],
+        "errors": []
+      },
+      {
+        "browser": "chromium",
+        "viewport": {
+          "width": 320,
+          "height": 568
+        },
+        "fresh": {
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 320,
+            "height": 180,
+            "top": 0,
+            "right": 320,
+            "bottom": 180,
+            "left": 0
+          },
+          "hint": {
+            "x": 8,
+            "y": 82.171875,
+            "width": 304,
+            "height": 72.5,
+            "top": 82.171875,
+            "right": 312,
+            "bottom": 154.671875,
+            "left": 8
+          },
+          "hudTop": 158.66666666666669,
+          "gap": 3.9947916666666856,
+          "scrollWidth": 320,
+          "paused": false,
+          "depth": 0
+        },
+        "restored": {
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 320,
+            "height": 180,
+            "top": 0,
+            "right": 320,
+            "bottom": 180,
+            "left": 0
+          },
+          "hint": {
+            "x": 8,
+            "y": 82.171875,
+            "width": 304,
+            "height": 72.5,
+            "top": 82.171875,
+            "right": 312,
+            "bottom": 154.671875,
+            "left": 8
+          },
+          "hudTop": 158.66666666666669,
+          "gap": 3.9947916666666856,
+          "scrollWidth": 320,
+          "paused": false,
+          "depth": 2
+        },
+        "targets": [
+          {
+            "label": "Pause",
+            "x": 8,
+            "y": 182,
+            "width": 82,
+            "height": 48,
+            "top": 182,
+            "right": 90,
+            "bottom": 230,
+            "left": 8
+          },
+          {
+            "label": "Call basket \u2191",
+            "x": 98,
+            "y": 182,
+            "width": 214,
+            "height": 48,
+            "top": 182,
+            "right": 312,
+            "bottom": 230,
+            "left": 98
+          },
+          {
+            "label": "Jump up",
+            "x": 60,
+            "y": 232,
+            "width": 48,
+            "height": 48,
+            "top": 232,
+            "right": 108,
+            "bottom": 280,
+            "left": 60
+          },
+          {
+            "label": "Move and dig left",
+            "x": 8,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "top": 284,
+            "right": 56,
+            "bottom": 332,
+            "left": 8
+          },
+          {
+            "label": "Dig down",
+            "x": 60,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "top": 284,
+            "right": 108,
+            "bottom": 332,
+            "left": 60
+          },
+          {
+            "label": "Move and dig right",
+            "x": 112,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "top": 284,
+            "right": 160,
+            "bottom": 332,
+            "left": 112
+          },
+          {
+            "label": "Spit cheek contents",
+            "x": 208,
+            "y": 270,
+            "width": 48,
+            "height": 48,
+            "top": 270,
+            "right": 256,
+            "bottom": 318,
+            "left": 208
+          },
+          {
+            "label": "Jump",
+            "x": 264,
+            "y": 258,
+            "width": 48,
+            "height": 48,
+            "top": 258,
+            "right": 312,
+            "bottom": 306,
+            "left": 264
+          },
+          {
+            "label": "Deposit haul F",
+            "x": 8,
+            "y": 375,
+            "width": 97.328125,
+            "height": 48.1875,
+            "top": 375,
+            "right": 105.328125,
+            "bottom": 423.1875,
+            "left": 8
+          },
+          {
+            "label": "Visit shop",
+            "x": 111.328125,
+            "y": 375,
+            "width": 97.328125,
+            "height": 48.1875,
+            "top": 375,
+            "right": 208.65625,
+            "bottom": 423.1875,
+            "left": 111.328125
+          },
+          {
+            "label": "Retire safely",
+            "x": 214.65625,
+            "y": 375,
+            "width": 97.34375,
+            "height": 48.1875,
+            "top": 375,
+            "right": 312,
+            "bottom": 423.1875,
+            "left": 214.65625
+          }
+        ],
+        "checks": [
+          "Fresh hint and Settings-restored hint clear both HUD strips; first dig persists dismissal",
+          "Jump up: Enter performs jump, releases, no duplicate",
+          "Jump up: Space performs jump, releases, no duplicate",
+          "Jump up: click-only performs jump, releases, no duplicate",
+          "Jump up: pointer performs jump, releases, no duplicate",
+          "Move and dig left: Enter performs left, releases, no duplicate",
+          "Move and dig left: Space performs left, releases, no duplicate",
+          "Move and dig left: click-only performs left, releases, no duplicate",
+          "Move and dig left: pointer performs left, releases, no duplicate",
+          "Dig down: Enter performs down, releases, no duplicate",
+          "Dig down: Space performs down, releases, no duplicate",
+          "Dig down: click-only performs down, releases, no duplicate",
+          "Dig down: pointer performs down, releases, no duplicate",
+          "Move and dig right: Enter performs right, releases, no duplicate",
+          "Move and dig right: Space performs right, releases, no duplicate",
+          "Move and dig right: click-only performs right, releases, no duplicate",
+          "Move and dig right: pointer performs right, releases, no duplicate",
+          "Spit cheek contents: Enter performs spit, releases, no duplicate",
+          "Spit cheek contents: Space performs spit, releases, no duplicate",
+          "Spit cheek contents: click-only performs spit, releases, no duplicate",
+          "Spit cheek contents: pointer performs spit, releases, no duplicate",
+          "Jump: Enter performs jump, releases, no duplicate",
+          "Jump: Space performs jump, releases, no duplicate",
+          "Jump: click-only performs jump, releases, no duplicate",
+          "Jump: pointer performs jump, releases, no duplicate",
+          "Keyboard hold releases on blur",
+          "A real hold replaces a click-only pulse without an early timeout release",
+          "Pause cancels held/pulsed controls without replay on resume",
+          "Emulated touchscreen Spit tap fires once",
+          "Retire \u2192 Dig again restores top; dismissed hint stays hidden after reload"
+        ],
+        "errors": []
+      },
+      {
+        "browser": "chromium",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "fresh": {
+          "canvas": {
+            "x": 240,
+            "y": 186.09375,
+            "width": 960,
+            "height": 540,
+            "top": 186.09375,
+            "right": 1200,
+            "bottom": 726.09375,
+            "left": 240
+          },
+          "hint": {
+            "x": 172,
+            "y": 586.09375,
+            "width": 1096,
+            "height": 72,
+            "top": 586.09375,
+            "right": 1268,
+            "bottom": 658.09375,
+            "left": 172
+          },
+          "hudTop": 662.09375,
+          "gap": 4,
+          "scrollWidth": 1440,
+          "paused": false,
+          "depth": 0
+        },
+        "restored": {
+          "canvas": {
+            "x": 240,
+            "y": 186.09375,
+            "width": 960,
+            "height": 540,
+            "top": 186.09375,
+            "right": 1200,
+            "bottom": 726.09375,
+            "left": 240
+          },
+          "hint": {
+            "x": 172,
+            "y": 586.09375,
+            "width": 1096,
+            "height": 72,
+            "top": 586.09375,
+            "right": 1268,
+            "bottom": 658.09375,
+            "left": 172
+          },
+          "hudTop": 662.09375,
+          "gap": 4,
+          "scrollWidth": 1440,
+          "paused": false,
+          "depth": 2
+        },
+        "targets": [
+          {
+            "label": "Deposit haul F",
+            "x": 160,
+            "y": 826.09375,
+            "width": 196,
+            "height": 66.09375,
+            "top": 826.09375,
+            "right": 356,
+            "bottom": 892.1875,
+            "left": 160
+          },
+          {
+            "label": "Visit shop",
+            "x": 368,
+            "y": 826.09375,
+            "width": 146,
+            "height": 66.09375,
+            "top": 826.09375,
+            "right": 514,
+            "bottom": 892.1875,
+            "left": 368
+          },
+          {
+            "label": "Retire safely",
+            "x": 526,
+            "y": 826.09375,
+            "width": 174,
+            "height": 66.09375,
+            "top": 826.09375,
+            "right": 700,
+            "bottom": 892.1875,
+            "left": 526
+          }
+        ],
+        "checks": [
+          "Fresh hint and Settings-restored hint clear both HUD strips; first dig persists dismissal",
+          "Retire \u2192 Dig again restores top; dismissed hint stays hidden after reload"
+        ],
+        "errors": []
+      }
+    ],
+    "webkit": [
+      {
+        "browser": "webkit",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "fresh": {
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 219.375,
+            "top": 0,
+            "right": 390,
+            "bottom": 219.375,
+            "left": 0
+          },
+          "hint": {
+            "x": 8,
+            "y": 134.375,
+            "width": 374,
+            "height": 55,
+            "top": 134.375,
+            "right": 382,
+            "bottom": 189.375,
+            "left": 8
+          },
+          "hudTop": 193.375,
+          "gap": 4,
+          "scrollWidth": 390,
+          "paused": false,
+          "depth": 0
+        },
+        "restored": {
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 219.375,
+            "top": 0,
+            "right": 390,
+            "bottom": 219.375,
+            "left": 0
+          },
+          "hint": {
+            "x": 8,
+            "y": 134.375,
+            "width": 374,
+            "height": 55,
+            "top": 134.375,
+            "right": 382,
+            "bottom": 189.375,
+            "left": 8
+          },
+          "hudTop": 193.375,
+          "gap": 4,
+          "scrollWidth": 390,
+          "paused": false,
+          "depth": 1
+        },
+        "targets": [
+          {
+            "label": "Pause",
+            "x": 8,
+            "y": 221.375,
+            "width": 79.609375,
+            "height": 48,
+            "top": 221.375,
+            "right": 87.609375,
+            "bottom": 269.375,
+            "left": 8
+          },
+          {
+            "label": "Call basket \u2191",
+            "x": 95.609375,
+            "y": 221.375,
+            "width": 286.390625,
+            "height": 48,
+            "top": 221.375,
+            "right": 382,
+            "bottom": 269.375,
+            "left": 95.609375
+          },
+          {
+            "label": "Jump up",
+            "x": 60,
+            "y": 271.375,
+            "width": 48,
+            "height": 48,
+            "top": 271.375,
+            "right": 108,
+            "bottom": 319.375,
+            "left": 60
+          },
+          {
+            "label": "Move and dig left",
+            "x": 8,
+            "y": 323.375,
+            "width": 48,
+            "height": 48,
+            "top": 323.375,
+            "right": 56,
+            "bottom": 371.375,
+            "left": 8
+          },
+          {
+            "label": "Dig down",
+            "x": 60,
+            "y": 323.375,
+            "width": 48,
+            "height": 48,
+            "top": 323.375,
+            "right": 108,
+            "bottom": 371.375,
+            "left": 60
+          },
+          {
+            "label": "Move and dig right",
+            "x": 112,
+            "y": 323.375,
+            "width": 48,
+            "height": 48,
+            "top": 323.375,
+            "right": 160,
+            "bottom": 371.375,
+            "left": 112
+          },
+          {
+            "label": "Spit cheek contents",
+            "x": 278,
+            "y": 309.375,
+            "width": 48,
+            "height": 48,
+            "top": 309.375,
+            "right": 326,
+            "bottom": 357.375,
+            "left": 278
+          },
+          {
+            "label": "Jump",
+            "x": 334,
+            "y": 297.375,
+            "width": 48,
+            "height": 48,
+            "top": 297.375,
+            "right": 382,
+            "bottom": 345.375,
+            "left": 334
+          },
+          {
+            "label": "Deposit haul F",
+            "x": 8,
+            "y": 411.375,
+            "width": 120.65625,
+            "height": 48,
+            "top": 411.375,
+            "right": 128.65625,
+            "bottom": 459.375,
+            "left": 8
+          },
+          {
+            "label": "Visit shop",
+            "x": 134.65625,
+            "y": 411.375,
+            "width": 120.671875,
+            "height": 48,
+            "top": 411.375,
+            "right": 255.328125,
+            "bottom": 459.375,
+            "left": 134.65625
+          },
+          {
+            "label": "Retire safely",
+            "x": 261.328125,
+            "y": 411.375,
+            "width": 120.671875,
+            "height": 48,
+            "top": 411.375,
+            "right": 382,
+            "bottom": 459.375,
+            "left": 261.328125
+          }
+        ],
+        "checks": [
+          "Fresh hint and Settings-restored hint clear both HUD strips; first dig persists dismissal",
+          "Jump up: Enter performs jump, releases, no duplicate",
+          "Jump up: Space performs jump, releases, no duplicate",
+          "Jump up: click-only performs jump, releases, no duplicate",
+          "Jump up: pointer performs jump, releases, no duplicate",
+          "Move and dig left: Enter performs left, releases, no duplicate",
+          "Move and dig left: Space performs left, releases, no duplicate",
+          "Move and dig left: click-only performs left, releases, no duplicate",
+          "Move and dig left: pointer performs left, releases, no duplicate",
+          "Dig down: Enter performs down, releases, no duplicate",
+          "Dig down: Space performs down, releases, no duplicate",
+          "Dig down: click-only performs down, releases, no duplicate",
+          "Dig down: pointer performs down, releases, no duplicate",
+          "Move and dig right: Enter performs right, releases, no duplicate",
+          "Move and dig right: Space performs right, releases, no duplicate",
+          "Move and dig right: click-only performs right, releases, no duplicate",
+          "Move and dig right: pointer performs right, releases, no duplicate",
+          "Spit cheek contents: Enter performs spit, releases, no duplicate",
+          "Spit cheek contents: Space performs spit, releases, no duplicate",
+          "Spit cheek contents: click-only performs spit, releases, no duplicate",
+          "Spit cheek contents: pointer performs spit, releases, no duplicate",
+          "Jump: Enter performs jump, releases, no duplicate",
+          "Jump: Space performs jump, releases, no duplicate",
+          "Jump: click-only performs jump, releases, no duplicate",
+          "Jump: pointer performs jump, releases, no duplicate",
+          "Keyboard hold releases on blur",
+          "A real hold replaces a click-only pulse without an early timeout release",
+          "Pause cancels held/pulsed controls without replay on resume",
+          "Emulated touchscreen Spit tap fires once",
+          "Retire \u2192 Dig again restores top; dismissed hint stays hidden after reload"
+        ],
+        "errors": [],
+        "cancelledRequests": [
+          {
+            "resource": "/preview/assets/audio/music_loop.ogg",
+            "reason": "Load request cancelled",
+            "duringReload": false
+          }
+        ]
+      },
+      {
+        "browser": "webkit",
+        "viewport": {
+          "width": 320,
+          "height": 568
+        },
+        "fresh": {
+          "canvas": {
+            "x": 12,
+            "y": 0,
+            "width": 296,
+            "height": 166.5,
+            "top": 0,
+            "right": 308,
+            "bottom": 166.5,
+            "left": 12
+          },
+          "hint": {
+            "x": 8,
+            "y": 70.28125,
+            "width": 304,
+            "height": 72.5,
+            "top": 70.28125,
+            "right": 312,
+            "bottom": 142.78125,
+            "left": 8
+          },
+          "hudTop": 146.76666666666668,
+          "gap": 3.98541666666668,
+          "scrollWidth": 320,
+          "paused": false,
+          "depth": 0
+        },
+        "restored": {
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 320,
+            "height": 180,
+            "top": 0,
+            "right": 320,
+            "bottom": 180,
+            "left": 0
+          },
+          "hint": {
+            "x": 8,
+            "y": 82.171875,
+            "width": 304,
+            "height": 72.5,
+            "top": 82.171875,
+            "right": 312,
+            "bottom": 154.671875,
+            "left": 8
+          },
+          "hudTop": 158.66666666666669,
+          "gap": 3.9947916666666856,
+          "scrollWidth": 320,
+          "paused": false,
+          "depth": 1
+        },
+        "targets": [
+          {
+            "label": "Pause",
+            "x": 8,
+            "y": 182,
+            "width": 79.609375,
+            "height": 48,
+            "top": 182,
+            "right": 87.609375,
+            "bottom": 230,
+            "left": 8
+          },
+          {
+            "label": "Call basket \u2191",
+            "x": 95.609375,
+            "y": 182,
+            "width": 216.390625,
+            "height": 48,
+            "top": 182,
+            "right": 312,
+            "bottom": 230,
+            "left": 95.609375
+          },
+          {
+            "label": "Jump up",
+            "x": 60,
+            "y": 232,
+            "width": 48,
+            "height": 48,
+            "top": 232,
+            "right": 108,
+            "bottom": 280,
+            "left": 60
+          },
+          {
+            "label": "Move and dig left",
+            "x": 8,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "top": 284,
+            "right": 56,
+            "bottom": 332,
+            "left": 8
+          },
+          {
+            "label": "Dig down",
+            "x": 60,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "top": 284,
+            "right": 108,
+            "bottom": 332,
+            "left": 60
+          },
+          {
+            "label": "Move and dig right",
+            "x": 112,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "top": 284,
+            "right": 160,
+            "bottom": 332,
+            "left": 112
+          },
+          {
+            "label": "Spit cheek contents",
+            "x": 208,
+            "y": 270,
+            "width": 48,
+            "height": 48,
+            "top": 270,
+            "right": 256,
+            "bottom": 318,
+            "left": 208
+          },
+          {
+            "label": "Jump",
+            "x": 264,
+            "y": 258,
+            "width": 48,
+            "height": 48,
+            "top": 258,
+            "right": 312,
+            "bottom": 306,
+            "left": 264
+          },
+          {
+            "label": "Deposit haul F",
+            "x": 8,
+            "y": 375,
+            "width": 97.328125,
+            "height": 48.1875,
+            "top": 375,
+            "right": 105.328125,
+            "bottom": 423.1875,
+            "left": 8
+          },
+          {
+            "label": "Visit shop",
+            "x": 111.328125,
+            "y": 375,
+            "width": 97.328125,
+            "height": 48.1875,
+            "top": 375,
+            "right": 208.65625,
+            "bottom": 423.1875,
+            "left": 111.328125
+          },
+          {
+            "label": "Retire safely",
+            "x": 214.65625,
+            "y": 375,
+            "width": 97.328125,
+            "height": 48.1875,
+            "top": 375,
+            "right": 311.984375,
+            "bottom": 423.1875,
+            "left": 214.65625
+          }
+        ],
+        "checks": [
+          "Fresh hint and Settings-restored hint clear both HUD strips; first dig persists dismissal",
+          "Jump up: Enter performs jump, releases, no duplicate",
+          "Jump up: Space performs jump, releases, no duplicate",
+          "Jump up: click-only performs jump, releases, no duplicate",
+          "Jump up: pointer performs jump, releases, no duplicate",
+          "Move and dig left: Enter performs left, releases, no duplicate",
+          "Move and dig left: Space performs left, releases, no duplicate",
+          "Move and dig left: click-only performs left, releases, no duplicate",
+          "Move and dig left: pointer performs left, releases, no duplicate",
+          "Dig down: Enter performs down, releases, no duplicate",
+          "Dig down: Space performs down, releases, no duplicate",
+          "Dig down: click-only performs down, releases, no duplicate",
+          "Dig down: pointer performs down, releases, no duplicate",
+          "Move and dig right: Enter performs right, releases, no duplicate",
+          "Move and dig right: Space performs right, releases, no duplicate",
+          "Move and dig right: click-only performs right, releases, no duplicate",
+          "Move and dig right: pointer performs right, releases, no duplicate",
+          "Spit cheek contents: Enter performs spit, releases, no duplicate",
+          "Spit cheek contents: Space performs spit, releases, no duplicate",
+          "Spit cheek contents: click-only performs spit, releases, no duplicate",
+          "Spit cheek contents: pointer performs spit, releases, no duplicate",
+          "Jump: Enter performs jump, releases, no duplicate",
+          "Jump: Space performs jump, releases, no duplicate",
+          "Jump: click-only performs jump, releases, no duplicate",
+          "Jump: pointer performs jump, releases, no duplicate",
+          "Keyboard hold releases on blur",
+          "A real hold replaces a click-only pulse without an early timeout release",
+          "Pause cancels held/pulsed controls without replay on resume",
+          "Emulated touchscreen Spit tap fires once",
+          "Retire \u2192 Dig again restores top; dismissed hint stays hidden after reload"
+        ],
+        "errors": [],
+        "cancelledRequests": [
+          {
+            "resource": "/preview/assets/audio/music_loop.ogg",
+            "reason": "Load request cancelled",
+            "duringReload": false
+          }
+        ]
+      },
+      {
+        "browser": "webkit",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "fresh": {
+          "canvas": {
+            "x": 240,
+            "y": 186.09375,
+            "width": 960,
+            "height": 540,
+            "top": 186.09375,
+            "right": 1200,
+            "bottom": 726.09375,
+            "left": 240
+          },
+          "hint": {
+            "x": 172,
+            "y": 586.09375,
+            "width": 1096,
+            "height": 72,
+            "top": 586.09375,
+            "right": 1268,
+            "bottom": 658.09375,
+            "left": 172
+          },
+          "hudTop": 662.09375,
+          "gap": 4,
+          "scrollWidth": 1440,
+          "paused": false,
+          "depth": 0
+        },
+        "restored": {
+          "canvas": {
+            "x": 240,
+            "y": 186.09375,
+            "width": 960,
+            "height": 540,
+            "top": 186.09375,
+            "right": 1200,
+            "bottom": 726.09375,
+            "left": 240
+          },
+          "hint": {
+            "x": 172,
+            "y": 586.09375,
+            "width": 1096,
+            "height": 72,
+            "top": 586.09375,
+            "right": 1268,
+            "bottom": 658.09375,
+            "left": 172
+          },
+          "hudTop": 662.09375,
+          "gap": 4,
+          "scrollWidth": 1440,
+          "paused": false,
+          "depth": 1
+        },
+        "targets": [
+          {
+            "label": "Deposit haul F",
+            "x": 160,
+            "y": 826.09375,
+            "width": 192.65625,
+            "height": 66.09375,
+            "top": 826.09375,
+            "right": 352.65625,
+            "bottom": 892.1875,
+            "left": 160
+          },
+          {
+            "label": "Visit shop",
+            "x": 364.65625,
+            "y": 826.09375,
+            "width": 142.390625,
+            "height": 66.09375,
+            "top": 826.09375,
+            "right": 507.046875,
+            "bottom": 892.1875,
+            "left": 364.65625
+          },
+          {
+            "label": "Retire safely",
+            "x": 519.046875,
+            "y": 826.09375,
+            "width": 169.765625,
+            "height": 66.09375,
+            "top": 826.09375,
+            "right": 688.8125,
+            "bottom": 892.1875,
+            "left": 519.046875
+          }
+        ],
+        "checks": [
+          "Fresh hint and Settings-restored hint clear both HUD strips; first dig persists dismissal",
+          "Retire \u2192 Dig again restores top; dismissed hint stays hidden after reload"
+        ],
+        "errors": [],
+        "cancelledRequests": [
+          {
+            "resource": "/preview/assets/audio/music_loop.ogg",
+            "reason": "Load request cancelled",
+            "duringReload": false
+          }
+        ]
+      }
+    ]
+  },
+  "exportFiles": 72,
+  "exportBytes": 2312345,
+  "sourceSha256": {
+    "src/main.tsx": "9904e394f0c8f2ce175e87352e73d8766ea83236d034e10ea6814c9f03889737",
+    "src/style.css": "ffe88c0e1cdfe980a97549bfd143b0be90c820765f958ae53f7d69dc937b8f6c"
+  },
+  "exportSha256": {
+    "dist/index.html": "5f03f788c31e39130ade46d0dd8c11c7c5f31df1c61a0ca6eee3cc5eb190a7a2",
+    "dist/bundle/index-dLukwi9-.js": "66b48124033837433418c7905f5f0be6193002fb837bb889e2430e7861ba1ffa",
+    "dist/bundle/index-DQ170LpL.css": "fb249f26e4a47258c3b17903e521dfdd2b0fbe1dfe5cd04c947feb9e643965f2"
+  }
+}

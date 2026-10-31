@@ -1,0 +1,102 @@
+{
+  "limitBytes": 8388608,
+  "addedOrModifiedBytesConservative": 1023178,
+  "calculation": "Full file sizes of added/modified deliverables, including this report and reviewer-response metadata; deleted files contribute zero. This upper-bounds the new file content before compression.",
+  "ignoreFilesChanged": false,
+  "protectedPathsChanged": false,
+  "dependencyOrCacheDirectoriesAdded": false,
+  "files": [
+    {
+      "path": ".imd-responses.json",
+      "bytes": 2023
+    },
+    {
+      "path": "DESIGN.md",
+      "bytes": 12794
+    },
+    {
+      "path": "README.md",
+      "bytes": 8480
+    },
+    {
+      "path": "artifacts/control-budget.json",
+      "bytes": 2272
+    },
+    {
+      "path": "artifacts/control-review.json",
+      "bytes": 35965
+    },
+    {
+      "path": "artifacts/control-review.md",
+      "bytes": 10858
+    },
+    {
+      "path": "artifacts/control-taste.json",
+      "bytes": 3689
+    },
+    {
+      "path": "artifacts/screenshots/control-before-hint-390.png",
+      "bytes": 48076
+    },
+    {
+      "path": "artifacts/screenshots/control-focus-390.png",
+      "bytes": 48787
+    },
+    {
+      "path": "artifacts/screenshots/control-hint-1440.png",
+      "bytes": 86430
+    },
+    {
+      "path": "artifacts/screenshots/control-hint-320.png",
+      "bytes": 38549
+    },
+    {
+      "path": "artifacts/screenshots/control-hint-390.png",
+      "bytes": 49147
+    },
+    {
+      "path": "artifacts/screenshots/control-restored-390.png",
+      "bytes": 48653
+    },
+    {
+      "path": "artifacts/screenshots/control-title-390.png",
+      "bytes": 204078
+    },
+    {
+      "path": "artifacts/screenshots/control-webkit-hint-320.png",
+      "bytes": 43961
+    },
+    {
+      "path": "artifacts/validation.md",
+      "bytes": 23463
+    },
+    {
+      "path": "dist/bundle/index-DQ170LpL.css",
+      "bytes": 24899
+    },
+    {
+      "path": "dist/bundle/index-dLukwi9-.js",
+      "bytes": 222530
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 1524
+    },
+    {
+      "path": "dist/sw.js",
+      "bytes": 2948
+    },
+    {
+      "path": "scripts/check-controls.mjs",
+      "bytes": 14011
+    },
+    {
+      "path": "src/main.tsx",
+      "bytes": 58689
+    },
+    {
+      "path": "src/style.css",
+      "bytes": 31352
+    }
+  ]
+}
